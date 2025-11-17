@@ -1,37 +1,41 @@
-html {
-  scroll-behavior: smooth;
-}
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      color: #ecf0f1;
+    }
 
-body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  color: #ecf0f1;
-}
+    .bloc {
+      width: 100%;
+      padding: 80px 40px;
+    }
 
-.bloc {
-  width: 100%;
-  padding: 80px 40px;
-}
+    .la-une {
+      background-color: #1a2a3a;
+    }
 
-.la-une {
-  background-color: #1a2a3a;
-}
+    .actus {
+      background-color: #2c3e50;
+    }
 
-.actus {
-  background-color: #2c3e50;
-}
+    .nouveautes {
+      background-color: #34495e;
+    }
 
-.nouveautes {
-  background-color: #34495e;
-}
+    .footer {
+      background-color: #1a2a3a;
+      text-align: center;
+      padding: 40px;
+      font-size: 0.9em;
+      color: #bdc3c7;
+    }
 
-h2 {
-  font-size: 2.5em;
-  color: #00bfff;
-  margin-bottom: 20px;
-}
+    h2 {
+      font-size: 2.5em;
+      color: #00bfff;
+      margin-bottom: 20px;
+    }
 
-p {
-  font-size: 1.2em;
-  line-height: 1.6em;
-}
+    p {
+      font-size: 1.2em;
+      line-height: 1.6em;
+    }
