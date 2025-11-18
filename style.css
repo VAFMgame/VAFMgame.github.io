@@ -27,7 +27,7 @@ header {
 
 /* --- Barre bleu --- */
 .top-bar {
-  background-color: #2c3e50;
+  background-color: #00008B;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +44,7 @@ header {
 
 /* --- Barre bleu secondaire --- */
 .sub-bar {
-  background-color: #2c3e50;
+  background-color: #003366;
   color: white;
   text-align: center;
   padding: 8px 0;
