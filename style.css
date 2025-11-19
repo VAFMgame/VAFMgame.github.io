@@ -9,14 +9,6 @@ sc-status-widget {
   text-align: center;
 }
 
-.adsbygoogle {
-  margin: 20px auto;
-  text-align: center;
-}
-
-/* Ajoute en bas de style.css */
-body { padding-bottom: 110px; }
-
 /* --- Header --- */
 header {
   display: flex;
