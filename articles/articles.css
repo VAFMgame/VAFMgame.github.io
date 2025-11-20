@@ -75,4 +75,18 @@
   font-size: 1em;
   color: #00bfff;
 }
+.home-icon {
+  margin-left: auto;
+}
+
+.icon-home {
+  height: 32px;
+  width: 32px;
+  filter: brightness(120%);
+  transition: transform 0.2s ease;
+}
+
+.icon-home:hover {
+  transform: scale(1.1);
+}
 
