@@ -50,7 +50,7 @@ p {
 }
 
 .vignette img {
-  width: 100%;
+  width: 90%;
   height: flex; /* 🔽 Réduction ici */
   object-fit: cover;
   display: block;
