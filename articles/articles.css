@@ -75,18 +75,23 @@
   font-size: 1em;
   color: #00bfff;
 }
-.home-icon {
-  margin-left: auto;
+
+.btn-login {
+  background-color: #00bfff;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-.icon-home {
-  height: 48px;
-  width: 48px;
-  filter: brightness(120%);
-  transition: transform 0.2s ease;
+.btn-login:hover {
+  background-color: #0099cc;
 }
 
-.icon-home:hover {
-  transform: scale(1.1);
+.icon-user {
+  height: 60px; /* 🔽 Avant : peut-être 120px ou plus */
+  width: auto;
 }
 
