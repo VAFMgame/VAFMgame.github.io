@@ -132,6 +132,7 @@ p {
   color: #00bfff;
 }
 
+/* Bloc actus en deux colonnes */
 .actus-ligne {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -146,7 +147,7 @@ p {
   color: white;
   text-decoration: none;
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
   transition: transform 0.3s ease;
 }
 
@@ -155,21 +156,26 @@ p {
 }
 
 .vignette-actu img {
-  width: 100px;
-  height: 100px;
+  width: 120px;   /* image plus grande */
+  height: 120px;  /* carrée */
   object-fit: cover;
   border-radius: 8px;
-  margin-right: 15px;
+  margin-right: 20px;
+}
+
+.contenu-actu {
+  flex: 1;
 }
 
 .contenu-actu h4 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
+  color: #00bfff;
 }
 
 .contenu-actu p {
-  margin: 5px 0 0;
-  font-size: 14px;
+  margin: 8px 0 0;
+  font-size: 15px;
   color: #ccc;
 }
 
@@ -216,6 +222,7 @@ p {
   }
 }
 
+/* Responsive : une seule colonne sur mobile */
 @media screen and (max-width: 768px) {
   .actus-ligne {
     grid-template-columns: 1fr;
