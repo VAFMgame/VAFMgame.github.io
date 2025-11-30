@@ -49,7 +49,7 @@ main {
   background-color: #0099cc;
 }
 
-.icon-search {
+.search-icon {
   height: 60px; /* 🔽 Avant : peut-être 120px ou plus */
   width: auto;
 }
