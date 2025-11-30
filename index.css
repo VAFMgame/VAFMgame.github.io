@@ -215,3 +215,9 @@ p {
     height: 40px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .actus-ligne {
+    grid-template-columns: 1fr;
+  }
+}
