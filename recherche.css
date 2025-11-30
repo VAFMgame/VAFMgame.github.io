@@ -35,18 +35,14 @@ main {
   transform: scale(1.02);
 }
 
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
+.btn-search {
+  display: inline-block;
+  padding: 5px;
 }
 
-.btn .icon {
-  width: 20px;
-  height: 20px;
+.search-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
 }
+
