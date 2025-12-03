@@ -19,7 +19,7 @@ body {
 /* Blocs de contenu */
 .bloc {
   width: 100%;
-  padding: 30px 20px;
+  padding: 20px 16px; /* ✅ réduit l’espace vertical pour effet condensé */
 }
 
 .la-une,
@@ -34,12 +34,12 @@ body {
 h2 {
   font-size: 2.5em;
   color: #00bfff;
-  margin-bottom: 20px;
+  margin-bottom: 12px; /* ✅ réduit l’espace sous le titre */
 }
 
 p {
   font-size: 1.2em;
-  line-height: 1.6em;
+  line-height: 1.4em; /* ✅ plus compact */
 }
 
 .la-une-grid {
@@ -50,7 +50,7 @@ p {
 }
 
 .vignette.principale {
-  max-width: 1000px; /* ou la largeur que tu veux */
+  max-width: 1000px;
   width: 100%;
   margin: 0 auto;
 }
@@ -70,7 +70,7 @@ p {
 }
 
 .vignette-une {
-  margin: 40px auto;
+  margin: 20px auto; /* ✅ réduit l’espace autour */
   position: relative;
   display: block;
   width: 100%;
@@ -93,11 +93,11 @@ p {
   position: absolute;
   top: 20px;
   left: 20px;
-  font-size: 1.8em;
+  font-size: 1.6em; /* ✅ légèrement réduit */
   font-weight: bold;
   color: #00bfff;
   background-color: rgba(0, 0, 0, 0.6);
-  padding: 8px 12px;
+  padding: 6px 10px; /* ✅ plus compact */
   border-radius: 8px;
 }
 
@@ -107,7 +107,7 @@ p {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 20px;
+  padding: 16px; /* ✅ réduit */
   background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
   color: #ecf0f1;
   opacity: 0;
@@ -120,7 +120,7 @@ p {
 
 .texte-fondu p {
   margin: 0;
-  font-size: 1em;
+  font-size: 0.95em;
 }
 
 /* Vignettes secondaires */
@@ -128,12 +128,12 @@ p {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px; /* ✅ réduit l’espace */
   min-width: 200px;
 }
 
 .vignette.secondaire {
-  height: 120px;
+  height: 100px; /* ✅ plus compact */
 }
 
 .vignette h3,
@@ -146,32 +146,32 @@ p {
 .actus-ligne {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px;
+  gap: 16px; /* ✅ réduit l’espace entre colonnes */
+  padding: 16px; /* ✅ réduit */
 }
 
 .vignette-actu {
   display: flex;
   align-items: center;
-  background-color: transparent; /* pas de fond noir */
+  background-color: transparent;
   color: white;
   text-decoration: none;
-  border-radius: 16px; /* ✅ bords arrondis */
-  padding: 20px;
+  border-radius: 12px;
+  padding: 12px; /* ✅ réduit */
   transition: transform 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* optionnel pour effet de profondeur */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* ✅ plus léger */
 }
 
 .vignette-actu:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .vignette-actu img {
-  width: 140px;   /* ✅ image plus grande */
-  height: 140px;
+  width: 120px;   /* ✅ plus compact */
+  height: 120px;
   object-fit: cover;
-  border-radius: 12px; /* ✅ image arrondie aussi */
-  margin-right: 20px;
+  border-radius: 10px;
+  margin-right: 12px;
 }
 
 .contenu-actu {
@@ -180,37 +180,37 @@ p {
 
 .contenu-actu h4 {
   margin: 0;
-  font-size: 22px; /* ✅ titre plus grand */
+  font-size: 20px; /* ✅ réduit */
   color: #ecf0f1;
 }
 
 .contenu-actu p {
-  margin: 10px 0 0;
-  font-size: 16px;
+  margin: 4px 0 0; /* ✅ réduit */
+  font-size: 14px;
   color: #bbb;
 }
 
 .bloc.actus {
-  background-color: #34495e; /* ta couleur actuelle */
-  padding: 60px 20px;        /* espace autour */
+  background-color: #34495e;
+  padding: 30px 16px; /* ✅ réduit */
 }
 
 .actus-ligne {
-  max-width: 1200px;   /* ✅ largeur limitée */
-  margin: 0 auto;      /* ✅ centre le bloc */
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 16px;
 }
 
 .titre-overlay {
-  padding: 10px;
+  padding: 8px;
 }
 
 .titre-overlay h4 {
   margin: 0;
   color: #00bfff;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 /* Bouton connexion */
@@ -224,7 +224,7 @@ p {
 .btn-login {
   background-color: #00bfff;
   color: #fff;
-  padding: 10px 16px;
+  padding: 8px 12px; /* ✅ réduit */
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
@@ -236,7 +236,7 @@ p {
 }
 
 .icon-user {
-  height: 60px; /* 🔽 Avant : peut-être 120px ou plus */
+  height: 50px; /* ✅ réduit */
   width: auto;
 }
 
@@ -256,20 +256,20 @@ p {
 .vignettes-carrees {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px; /* ✅ réduit */
   justify-content: center;
 }
 
 .vignette-illustration {
-  width: 400px; /* taille de la vignette */
+  width: 350px; /* ✅ plus compact */
 }
 
 .carre-image {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1; /* carré automatique */
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 12px; /* ✅ réduit */
 }
 
 .carre-image img {
@@ -277,7 +277,7 @@ p {
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 
 .titre-sur-image {
@@ -285,12 +285,12 @@ p {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 12px;
+  padding: 10px; /* ✅ réduit */
   background: rgba(0, 0, 0, 0.6);
   color: #00bfff;
-  font-size: 18px;
+  font-size: 16px; /* ✅ réduit */
   font-weight: bold;
   text-align: center;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
