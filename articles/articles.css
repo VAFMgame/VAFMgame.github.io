@@ -64,6 +64,12 @@ body {
   margin-bottom: 15px;
 }
 
+.article-content {
+  white-space: pre-line;
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
 /* Suggestions */
 .suggestions {
   padding: 40px;
