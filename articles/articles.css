@@ -1,10 +1,20 @@
+/* Police et style global */
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 1.05em;
+  line-height: 1.6em;
+  color: #ecf0f1;
+  background-color: #1a2a3a;
+  margin: 0;
+  padding: 0;
+}
+
+/* Mise en page article */
 .article-layout {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
   padding: 40px;
-  background-color: #1a2a3a;
-  color: #ecf0f1;
 }
 
 .article-img {
@@ -20,16 +30,20 @@
 }
 
 .article-text h1 {
+  font-family: 'Open Sans', Arial, sans-serif; /* cohérence */
   color: #00bfff;
   font-size: 2em;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 .article-text p {
   font-size: 1.1em;
-  line-height: 1.6em;
+  line-height: 1.7em;
+  margin-bottom: 15px;
 }
 
+/* Suggestions */
 .suggestions {
   padding: 40px;
   background-color: #2c3e50;
@@ -37,9 +51,11 @@
 }
 
 .suggestions h2 {
+  font-family: 'Open Sans', Arial, sans-serif;
   color: #00bfff;
   margin-bottom: 30px;
   font-size: 1.8em;
+  font-weight: bold;
 }
 
 .suggestions-grid {
@@ -58,6 +74,7 @@
   color: #ecf0f1;
   transition: transform 0.3s ease;
   text-align: center;
+  font-family: 'Open Sans', Arial, sans-serif;
 }
 
 .suggestion-card:hover {
@@ -74,8 +91,10 @@
   padding: 10px;
   font-size: 1em;
   color: #00bfff;
+  font-weight: 600;
 }
 
+/* Icône accueil */
 .home-icon {
   color: #fff;
   padding: 10px 16px;
@@ -83,6 +102,7 @@
   text-decoration: none;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  font-family: 'Open Sans', Arial, sans-serif;
 }
 
 .home-icon:hover {
@@ -90,13 +110,7 @@
 }
 
 .icon-home {
-  height: 60px; /* 🔽 Avant : peut-être 120px ou plus */
+  height: 60px;
   width: auto;
 }
 
-.article-page {
-  font-family: 'Open Sans', Arial, sans-serif;
-  font-size: 1.1em;
-  line-height: 1.6em;
-  color: #ecf0f1;
-}
