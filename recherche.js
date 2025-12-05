@@ -5,16 +5,27 @@ fetch("index.html")
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
 
-    // Sélectionner les titres dans toutes les vignettes
     const articles = [];
-    doc.querySelectorAll(
-      ".titre-fixe, .contenu-actu h4, .titre-sur-image"
-    ).forEach(el => {
-      const bloc = el.closest(".vignette, .vignette-actu, .vignette-illustration, a");
-      if (bloc) {
+
+    // Sélectionner tous les blocs de vignettes
+    const vignettes = doc.querySelectorAll(
+      ".vignette-une, .vignette-actu, .vignette-illustration"
+    );
+
+    vignettes.forEach(bloc => {
+      const title =
+        bloc.querySelector(".titre-fixe, .contenu-actu h4, .titre-sur-image")?.textContent.trim() || "";
+      const text =
+        bloc.querySelector(".texte-fondu p, .contenu-actu p")?.textContent.trim() || "";
+      const image = bloc.querySelector("img")?.getAttribute("src") || "";
+      const link = bloc.querySelector("a")?.getAttribute("href") || "#";
+
+      if (title) {
         articles.push({
-          title: el.textContent.trim(),
-          html: bloc.outerHTML
+          title,
+          text,
+          image,
+          link
         });
       }
     });
@@ -25,11 +36,17 @@ fetch("index.html")
     searchInput.addEventListener("keyup", () => {
       const query = searchInput.value.toLowerCase();
       const filtered = articles.filter(a =>
-        a.title.toLowerCase().includes(query)
+        a.title.toLowerCase().includes(query) || a.text.toLowerCase().includes(query)
       );
 
       resultsDiv.innerHTML = filtered
-        .map(a => `<div class="result">${a.html}</div>`)
+        .map(a => `
+          <a href="${a.link}" class="vignette-result">
+            <img src="${a.image}" alt="${a.title}">
+            <h4>${a.title}</h4>
+            <p>${a.text}</p>
+          </a>
+        `)
         .join("");
     });
   });
