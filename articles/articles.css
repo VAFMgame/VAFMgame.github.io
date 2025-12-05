@@ -8,13 +8,13 @@ body {
   margin: 0;
   padding: 0;
 
-  /* Pour un footer stable en bas de page */
+  /* Footer toujours en bas */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Conteneur principal de l'article (pousse le footer en bas si peu de contenu) */
+/* Conteneur principal de l'article */
 .article-wrapper {
   max-width: 900px;
   margin: 0 auto;
@@ -22,7 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1 0 auto;
+  flex: 1 0 auto; /* pousse le footer si peu de contenu */
 }
 
 /* Texte au-dessus de l'image */
@@ -146,7 +146,7 @@ body {
   width: auto;
 }
 
-/* Footer propre et stable */
+/* Footer */
 .site-footer {
   margin-top: auto;
   background-color: #111;
@@ -173,7 +173,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 18px;
-  align-items: center;
   justify-content: center;
 }
 
