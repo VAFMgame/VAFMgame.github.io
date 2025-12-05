@@ -64,3 +64,38 @@ main {
   height: 60px; /* 🔽 Avant : peut-être 120px ou plus */
   width: auto;
 }
+
+.vignette-result {
+  width: 100%;
+  max-width: 300px;
+  background-color: #2c3e50;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 20px auto;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.vignette-result:hover {
+  transform: scale(1.03);
+}
+
+.vignette-result img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-bottom: 1px solid #1a2a3a;
+}
+
+.vignette-result h4 {
+  font-size: 1.1em;
+  color: #00bfff;
+  margin: 12px;
+  font-weight: 600;
+}
+
+.vignette-result p {
+  font-size: 0.95em;
+  color: #ecf0f1;
+  margin: 0 12px 12px;
+}
