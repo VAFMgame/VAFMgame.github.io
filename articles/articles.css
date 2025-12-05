@@ -25,10 +25,16 @@ body {
   flex: 1 0 auto; /* pousse le footer si peu de contenu */
 }
 
-/* Texte au-dessus de l'image */
 .article-text-top {
-  text-align: center;
+  text-align: left;
   margin-bottom: 30px;
+  width: 100%;
+}
+
+.article-text-bottom {
+  text-align: left;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .article-text-top h1 {
@@ -62,12 +68,6 @@ body {
   white-space: pre-line;
   font-size: 1.1em;
   margin-bottom: 15px;
-}
-
-/* Texte en dessous de l'image */
-.article-text-bottom {
-  text-align: center;
-  margin-top: 20px;
 }
 
 .article-text-bottom p {
