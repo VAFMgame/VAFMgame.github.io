@@ -136,11 +136,6 @@ body {
   transition: background-color 0.3s ease, opacity 0.2s ease;
 }
 
-.home-icon:hover {
-  background-color: #0099cc;
-  opacity: 0.95;
-}
-
 .icon-home {
   height: 60px;
   width: auto;
