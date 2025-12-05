@@ -197,6 +197,29 @@ body {
   width: 100%;
 }
 
+.copy-button {
+  background-color: #00bfff;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+  background-color: #0099cc;
+}
+
+.copy-icon {
+  width: 18px;
+  height: 18px;
+}
+
 /* Responsive */
 @media (max-width: 960px) {
   .article-img img {
