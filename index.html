@@ -8,6 +8,68 @@
   <link rel="stylesheet" href="style.css?v=2">
   <link rel="stylesheet" href="index.css?v=2">
   <link rel="stylesheet" href="recherche.css?v=2">
+  <style>
+    /* === Carousel CSS intégré === */
+    .carousel-wrapper {
+      position: relative;
+      max-width: 900px;
+      margin: 40px auto;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      gap: 20px;
+    }
+
+    .vignette-illustration {
+      min-width: calc(50% - 10px); /* 2 visibles */
+      flex-shrink: 0;
+    }
+
+    .carre-image {
+      background-color: #34495e;
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .carre-image img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .titre-sur-image {
+      padding: 10px;
+      color: #00bfff;
+      font-weight: 600;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #1a2a3a;
+      color: #ecf0f1;
+      border: none;
+      font-size: 2em;
+      padding: 0 12px;
+      cursor: pointer;
+      z-index: 1;
+      border-radius: 8px;
+      opacity: 0.9;
+    }
+
+    .carousel-btn.left { left: 6px; }
+    .carousel-btn.right { right: 6px; }
+
+    .carousel-btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,78 +90,86 @@
       </div>
     </header>
 
-<div class="sub-bar"></div>
+    <div class="sub-bar"></div>
 
-<div class="bloc la-une">
-  <div class="conteneur">
-    <div class="la-une-grid">
-      <div class="vignette principale">
-        <a href="articles/article-une.html" class="vignette-une">
-          <img src="assets/Nintendo decembre.jpg" alt="Nintendo nouveauté décembre">
-          <div class="titre-fixe">Nintendo nouveauté</div>
-          <div class="texte-fondu">
-            <p>Nintendo dévoile leurs nouveautés de décembre...</p>
+    <div class="bloc la-une">
+      <div class="conteneur">
+        <div class="la-une-grid">
+          <div class="vignette principale">
+            <a href="articles/article-une.html" class="vignette-une">
+              <img src="assets/Nintendo decembre.jpg" alt="Nintendo nouveauté décembre">
+              <div class="titre-fixe">Nintendo nouveauté</div>
+              <div class="texte-fondu">
+                <p>Nintendo dévoile leurs nouveautés de décembre...</p>
+              </div>
+            </a>
           </div>
-        </a>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="bloc actus">
-  <div class="conteneur">
-    <div class="actus-ligne">
-      <a href="articles/article-1.html" class="vignette-actu">
-        <img src="assets/PS+ logo.jpg" alt="Elden Ring">
-        <div class="contenu-actu">
-          <h4>Les jeux du Playstation+ de décembre</h4>
-          <p>Voici les jeux du Plastation+ de décembre</p>
+    <div class="bloc actus">
+      <div class="conteneur">
+        <div class="actus-ligne">
+          <a href="articles/article-1.html" class="vignette-actu">
+            <img src="assets/PS+ logo.jpg" alt="Elden Ring">
+            <div class="contenu-actu">
+              <h4>Les jeux du Playstation+ de décembre</h4>
+              <p>Voici les jeux du Plastation+ de décembre</p>
+            </div>
+          </a>
+
+          <a href="articles/article2.html" class="vignette-actu">
+            <img src="assets/WWH.avif" alt="Elden Ring">
+            <div class="contenu-actu">
+              <h4>Elden Ring: Firestorm Hollow</h4>
+              <p>coucou thomas</p>
+            </div>
+          </a>
+
+          <a href="articles/WWH.html" class="vignette-actu">
+            <img src="assets/WWH.avif" alt="Elden Ring">
+            <div class="contenu-actu">
+              <h4>Elden Ring: Firestorm Hollow</h4>
+              <p>coucou thomas</p>
+            </div>
+          </a>
         </div>
-      </a>
-
-      <a href="articles/article2.html" class="vignette-actu">
-        <img src="assets/WWH.avif" alt="Elden Ring">
-        <div class="contenu-actu">
-          <h4>Elden Ring: Firestorm Hollow</h4>
-          <p>coucou thomas</p>
-        </div>
-      </a>
-
-      <a href="articles/WWH.html" class="vignette-actu">
-        <img src="assets/WWH.avif" alt="Elden Ring">
-        <div class="contenu-actu">
-          <h4>Elden Ring: Firestorm Hollow</h4>
-          <p>coucou thomas</p>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-
-<div class="bloc nouveautes">
-  <div class="conteneur">
-    <div class="vignettes-carrees">
-      <div class="vignette-illustration">
-        <a href="articles/article1.html">
-          <div class="carre-image">
-            <img src="assets/WWH.avif" alt="Titre 1">
-            <div class="titre-sur-image">Titre d’illustration 1</div>
-          </div>
-        </a>
-      </div>
-
-      <div class="vignette-illustration">
-        <a href="articles/article2.html">
-          <div class="carre-image">
-            <img src="assets/WWH.avif" alt="Titre 2">
-            <div class="titre-sur-image">Titre d’illustration 2</div>
-          </div>
-        </a>
       </div>
     </div>
-  </div>
-</div>
 
+    <!-- === Bloc nouveautés avec carousel === -->
+    <div class="bloc nouveautes">
+      <div class="conteneur">
+        <div class="carousel-wrapper">
+          <button class="carousel-btn left">&#10094;</button>
+
+          <div class="carousel-track">
+            <div class="vignette-illustration">
+              <a href="articles/article1.html">
+                <div class="carre-image">
+                  <img src="assets/WWH.avif" alt="Titre 1">
+                  <div class="titre-sur-image">Titre d’illustration 1</div>
+                </div>
+              </a>
+            </div>
+
+            <div class="vignette-illustration">
+              <a href="articles/article2.html">
+                <div class="carre-image">
+                  <img src="assets/WWH.avif" alt="Titre 2">
+                  <div class="titre-sur-image">Titre d’illustration 2</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Ajoute d’autres vignettes ici -->
+          </div>
+
+          <button class="carousel-btn right">&#10095;</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="site-footer">
