@@ -28,17 +28,18 @@ fetch("../index.html")
       const text =
         bloc.querySelector(".texte-fondu p, .contenu-actu p")?.textContent.trim() || "";
       const image = bloc.querySelector("img")?.getAttribute("src") || "";
-
       const link = bloc.tagName === "A"
         ? bloc.getAttribute("href")
         : bloc.querySelector("a")?.getAttribute("href") || "#";
 
-      // Corriger les liens relatifs pour qu'ils fonctionnent depuis une page article
-      const base = "../"; 
+      // Corriger les chemins relatifs
+      const base = "../";
       const lienCorrigé = link.startsWith("http") ? link : base + link;
+      const imageCorrigée = image.startsWith("http") ? image : base + image;
 
+      // Ajouter l'article si valide et différent de l'article actuel
       if (title && lienCorrigé !== "#" && title !== titreArticleActuel) {
-        articles.push({ title, text, image, link: lienCorrigé });
+        articles.push({ title, text, image: imageCorrigée, link: lienCorrigé });
       }
     });
 
@@ -58,7 +59,7 @@ fetch("../index.html")
     if (bloc) {
       bloc.innerHTML = recommandations.map(a => `
         <a href="${a.link}" class="vignette-horizontal">
-          <img src="${a.image}" alt="${a.title}">
+          <img src="${a.image}" alt="${a.title}" onerror="this.src='../assets/default.jpg'">
           <div class="contenu-actu">
             <h4>${a.title}</h4>
             <p>${a.text}</p>
@@ -68,4 +69,5 @@ fetch("../index.html")
     }
   })
   .catch(err => console.error("Erreur chargement recommandations :", err));
+
 
