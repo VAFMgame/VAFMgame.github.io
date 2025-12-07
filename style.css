@@ -28,20 +28,20 @@ header {
   position: relative;
 }
 
-/* --- Logo --- */
 .logo-zone {
   display: flex;
-  justify-content: flex-end; /* pousse le logo à droite */
-  align-items: flex-end;     /* pousse le logo vers le bas */
-  height: 100px;             /* ajuste la hauteur du bloc */
-  padding-right: 20px;       /* espace à droite */
-  padding-bottom: 10px;      /* espace en bas */
+  justify-content: flex-end;     /* pousse le logo vers la droite */
+  align-items: flex-start;       /* empêche qu’il remonte trop haut */
+  padding-right: 30px;           /* espace à droite */
+  padding-top: 40px;             /* espace au-dessus pour le descendre */
+  height: auto;
 }
 
 .logo {
-  max-height: 100px;
+  max-height: 80px;
   height: auto;
 }
+
 
 /* --- Barre bleu secondaire --- */
 .sub-bar {
