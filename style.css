@@ -441,3 +441,22 @@ header {
     height: 20px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .logo {
+    max-width: 120px;
+  }
+
+  .nav-right,
+  .header-right {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-icon img,
+  .btn-search img {
+    width: 32px;
+    height: 32px;
+  }
+}
