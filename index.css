@@ -346,12 +346,16 @@ p {
   border-bottom-right-radius: 12px;
 }
 
-.menu-central {
+.menu-central ul {
+  list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 30px;
   justify-content: center;
   align-items: center;
-  flex: 1;
+}
+
+.menu-central li {
+  position: relative;
 }
 
 .menu-central a {
@@ -359,10 +363,41 @@ p {
   text-decoration: none;
   font-weight: bold;
   padding: 8px 16px;
-  border-radius: 4px;
+  display: block;
   transition: background 0.3s ease;
 }
 
 .menu-central a:hover {
   background-color: #003399;
+  border-radius: 4px;
 }
+
+/* Sous-menu caché par défaut */
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #002266;
+  display: none;
+  flex-direction: column;
+  min-width: 160px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+.submenu li a {
+  padding: 10px 15px;
+  font-weight: normal;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.submenu li a:hover {
+  background-color: #003399;
+}
+
+/* Affiche le sous-menu au survol */
+.menu-central li:hover .submenu {
+  display: flex;
+}
+
