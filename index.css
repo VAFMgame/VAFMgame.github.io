@@ -6,12 +6,12 @@ body {
   color: #ecf0f1;
 }
 
-.actus-ligne,
-.carousel-track {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* ou space-between si tu veux étirer */
-  gap: 20px;
+.vignette-actu,
+.vignette-illustration,
+.vignette-principale {
+  width: 300px;
+  min-height: 180px;
+  box-sizing: border-box;
 }
 
 .bloc + .bloc {
