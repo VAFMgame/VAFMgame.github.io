@@ -230,6 +230,46 @@ body {
   font-weight: 600;
 }
 
+.vignette-horizontal {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: #0f1a2b;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.vignette-horizontal:hover {
+  transform: scale(1.02);
+  background-color: #182a45;
+}
+
+.vignette-horizontal img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.vignette-horizontal .contenu-actu {
+  flex: 1;
+}
+
+.vignette-horizontal h4 {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.vignette-horizontal p {
+  margin: 5px 0 0;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
 /* Responsive */
 @media (max-width: 960px) {
   .article-img img {
