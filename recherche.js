@@ -18,9 +18,13 @@ fetch("index.html")
       const text =
         bloc.querySelector(".texte-fondu p, .contenu-actu p")?.textContent.trim() || "";
       const image = bloc.querySelector("img")?.getAttribute("src") || "";
-      const link = bloc.querySelector("a")?.getAttribute("href") || "#";
 
-      if (title) {
+      // Correction : si le bloc est lui-même un <a>, on prend son href
+      const link = bloc.tagName === "A"
+        ? bloc.getAttribute("href")
+        : bloc.querySelector("a")?.getAttribute("href") || "#";
+
+      if (title && link !== "#") {
         articles.push({
           title,
           text,
@@ -51,4 +55,5 @@ fetch("index.html")
           `).join("")
         : `<p class="no-result">Aucun résultat trouvé.</p>`;
     });
-  });
+  })
+  .catch(err => console.error("Erreur lors du chargement des vignettes :", err));
