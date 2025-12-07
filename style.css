@@ -29,10 +29,18 @@ header {
 }
 
 /* --- Logo --- */
+.logo-zone {
+  display: flex;
+  justify-content: flex-end; /* pousse le logo à droite */
+  align-items: flex-end;     /* pousse le logo vers le bas */
+  height: 100px;             /* ajuste la hauteur du bloc */
+  padding-right: 20px;       /* espace à droite */
+  padding-bottom: 10px;      /* espace en bas */
+}
+
 .logo {
   max-height: 100px;
   height: auto;
-  width: auto;
 }
 
 /* --- Barre bleu secondaire --- */
