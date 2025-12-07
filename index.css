@@ -345,3 +345,24 @@ p {
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
+
+.menu-central {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.menu-central a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.menu-central a:hover {
+  background-color: #003399;
+}
