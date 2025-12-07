@@ -36,13 +36,11 @@ header {
 
 .logo {
   position: absolute;
-  right: 20px;     /* décalage vers la droite */
-  top: 40px;       /* décalage vers le bas */
-  max-height: 100px;
+  right: 30px;   /* décale vers la droite */
+  top: 30px;     /* descend le logo */
+  max-height: 80px;
   height: auto;
 }
-
-
 
 /* --- Barre bleu secondaire --- */
 .sub-bar {
