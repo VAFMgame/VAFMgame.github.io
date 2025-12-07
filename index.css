@@ -75,18 +75,18 @@ p {
 }
 
 .vignette-une img {
+  border-radius: 8px;
   width: 100%;
   display: block;
 }
 
 .titre-fixe {
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 10px;
   color: white;
   font-size: 1.4em;
   font-weight: bold;
-  background: rgba(0, 0, 0, 0.5); /* optionnel pour lisibilité */
   padding: 6px 12px;
   border-radius: 4px;
 }
