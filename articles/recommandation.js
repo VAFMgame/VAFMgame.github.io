@@ -1,7 +1,15 @@
-// recommandation.js
+// === CONFIGURATION ===
+const titreArticleActuel = "Le chapitre 7 de Fortnite arrive enfin !"; // ← change selon l'article
 
-// Charger les articles depuis la page d'accueil
-fetch("index.html")
+// === Enregistrer l'article consulté ===
+const vus = JSON.parse(localStorage.getItem("articlesVus") || "[]");
+if (!vus.includes(titreArticleActuel)) {
+  vus.push(titreArticleActuel);
+  localStorage.setItem("articlesVus", JSON.stringify(vus));
+}
+
+// === Charger les articles depuis la page d'accueil ===
+fetch("../index.html")
   .then(res => res.text())
   .then(html => {
     const parser = new DOMParser();
@@ -9,7 +17,6 @@ fetch("index.html")
 
     const articles = [];
 
-    // Sélectionner toutes les vignettes de la page d'accueil
     const vignettes = doc.querySelectorAll(
       ".vignette-une, .vignette-actu, .vignette-illustration"
     );
@@ -21,37 +28,27 @@ fetch("index.html")
         bloc.querySelector(".texte-fondu p, .contenu-actu p")?.textContent.trim() || "";
       const image = bloc.querySelector("img")?.getAttribute("src") || "";
 
-      // Correction : si le bloc est lui-même un <a>, on prend son href
       const link = bloc.tagName === "A"
         ? bloc.getAttribute("href")
         : bloc.querySelector("a")?.getAttribute("href") || "#";
 
-      if (title && link !== "#") {
+      if (title && link !== "#" && title !== titreArticleActuel) {
         articles.push({ title, text, image, link });
       }
     });
 
-    // Fonction pour récupérer les préférences de lecture
-    function getPreferences() {
-      const vus = JSON.parse(localStorage.getItem("articlesVus") || "[]");
-      const stats = {};
-      vus.forEach(titre => {
-        stats[titre] = (stats[titre] || 0) + 1;
-      });
-      return stats;
-    }
+    // === Préférences utilisateur ===
+    const stats = {};
+    vus.forEach(titre => {
+      stats[titre] = (stats[titre] || 0) + 1;
+    });
 
-    // Fonction pour recommander les articles
-    function recommander(articles) {
-      const prefs = getPreferences();
-      return articles
-        .sort((a, b) => (prefs[b.title] || 0) - (prefs[a.title] || 0))
-        .slice(0, 3); // Top 3 recommandations
-    }
+    // === Trier les articles selon les préférences ===
+    const recommandations = articles
+      .sort((a, b) => (stats[b.title] || 0) - (stats[a.title] || 0))
+      .slice(0, 3); // Top 3
 
-    // Générer les recommandations
-    const recommandations = recommander(articles);
-
+    // === Afficher dans la page ===
     const bloc = document.getElementById("recommandations");
     if (bloc) {
       bloc.innerHTML = recommandations.map(a => `
@@ -65,4 +62,4 @@ fetch("index.html")
       `).join("");
     }
   })
-  .catch(err => console.error("Erreur lors du chargement des recommandations :", err));
+  .catch(err => console.error("Erreur chargement recommandations :", err));
