@@ -1,9 +1,10 @@
 // === CONFIGURATION ===
-const titreArticleActuel = "Le chapitre 7 de Fortnite arrive enfin !"; // ← change selon l'article
+// On récupère automatiquement le titre de l'article depuis le <h1>
+const titreArticleActuel = document.querySelector("h1")?.textContent.trim() || "";
 
 // === Enregistrer l'article consulté ===
 const vus = JSON.parse(localStorage.getItem("articlesVus") || "[]");
-if (!vus.includes(titreArticleActuel)) {
+if (titreArticleActuel && !vus.includes(titreArticleActuel)) {
   vus.push(titreArticleActuel);
   localStorage.setItem("articlesVus", JSON.stringify(vus));
 }
@@ -32,8 +33,12 @@ fetch("../index.html")
         ? bloc.getAttribute("href")
         : bloc.querySelector("a")?.getAttribute("href") || "#";
 
-      if (title && link !== "#" && title !== titreArticleActuel) {
-        articles.push({ title, text, image, link });
+      // Corriger les liens relatifs pour qu'ils fonctionnent depuis une page article
+      const base = "../"; 
+      const lienCorrigé = link.startsWith("http") ? link : base + link;
+
+      if (title && lienCorrigé !== "#" && title !== titreArticleActuel) {
+        articles.push({ title, text, image, link: lienCorrigé });
       }
     });
 
@@ -52,7 +57,7 @@ fetch("../index.html")
     const bloc = document.getElementById("recommandations");
     if (bloc) {
       bloc.innerHTML = recommandations.map(a => `
-        <a href="${a.link}" class="vignette-actu vignette-horizontal">
+        <a href="${a.link}" class="vignette-horizontal">
           <img src="${a.image}" alt="${a.title}">
           <div class="contenu-actu">
             <h4>${a.title}</h4>
@@ -63,3 +68,4 @@ fetch("../index.html")
     }
   })
   .catch(err => console.error("Erreur chargement recommandations :", err));
+
