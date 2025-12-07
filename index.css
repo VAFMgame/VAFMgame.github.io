@@ -6,14 +6,6 @@ body {
   color: #ecf0f1;
 }
 
-.vignette-actu,
-.vignette-illustration,
-.vignette-principale {
-  width: 300px;
-  min-height: 180px;
-  box-sizing: border-box;
-}
-
 .bloc + .bloc {
   margin-top: 0;
 }
@@ -21,7 +13,7 @@ body {
 .conteneur {
   max-width: 1200px;   /* largeur fixe pour aligner tous les blocs */
   margin: 0 auto;      /* centre le contenu */
-  padding: 0 16px;     /* marges latérales */
+  padding: 0 24px;     /* marges latérales */
 }
 
 /* Blocs de contenu */
