@@ -13,7 +13,7 @@ body {
 .conteneur {
   max-width: 1200px;   /* largeur fixe pour aligner tous les blocs */
   margin: 0 auto;      /* centre le contenu */
-  padding: 0 24px;     /* marges latérales */
+  padding: 0 16px;     /* marges latérales */
 }
 
 /* Blocs de contenu */
