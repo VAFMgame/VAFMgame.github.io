@@ -232,12 +232,10 @@ body {
 
 .vignette-horizontal {
   display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-direction: column;
   background-color: #0f1a2b;
   border-radius: 12px;
   padding: 10px;
-  margin-bottom: 20px;
   text-decoration: none;
   color: white;
   transition: transform 0.3s ease;
@@ -249,14 +247,14 @@ body {
 }
 
 .vignette-horizontal img {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 180px;
   object-fit: cover;
   border-radius: 8px;
 }
 
 .vignette-horizontal .contenu-actu {
-  flex: 1;
+  margin-top: 10px;
 }
 
 .vignette-horizontal h4 {
