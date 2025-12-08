@@ -388,17 +388,18 @@ p {
   margin: 0;
 }
 
+/* Affiche le sous-menu uniquement au survol */
+.menu-item:hover .submenu {
+  display: flex;
+}
+
 .submenu li a {
   padding: 10px 15px;
   font-weight: normal;
   border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: white;
 }
 
 .submenu li a:hover {
   background-color: #003399;
-}
-
-/* Affiche le sous-menu uniquement au survol */
-.menu-item:hover .submenu {
-  display: flex;
 }
