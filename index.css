@@ -11,15 +11,15 @@ body {
 }
 
 .conteneur {
-  max-width: 1200px;   /* largeur fixe pour aligner tous les blocs */
-  margin: 0 auto;      /* centre le contenu */
-  padding: 0 16px;     /* marges latérales */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
 /* Blocs de contenu */
 .bloc {
   width: 100%;
-  padding: 20px 16px; /* ✅ réduit l’espace vertical pour effet condensé */
+  padding: 20px 16px;
 }
 
 .la-une,
@@ -34,324 +34,47 @@ body {
 h2 {
   font-size: 2.5em;
   color: #00bfff;
-  margin-bottom: 12px; /* ✅ réduit l’espace sous le titre */
+  margin-bottom: 12px;
 }
 
 p {
   font-size: 1.2em;
-  line-height: 1.4em; /* ✅ plus compact */
+  line-height: 1.4em;
 }
 
-.la-une-grid {
+/* === HEADER === */
+.top-bar {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  background-color: #000066;
+  padding: 15px 20px;
   flex-wrap: wrap;
 }
 
-.vignette.principale {
-  max-width: 1000px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.overlay,
-.titre-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-}
-
-.overlay {
-  padding: 20px;
-  color: #ecf0f1;
-}
-
-.vignette-une {
-  position: relative;
-  display: block;
-}
-
-.vignette-une img {
-  border-radius: 8px;
-  width: 100%;
-  display: block;
-}
-
-.titre-fixe {
-  position: absolute;
-  bottom: 35px;
-  left: 10px;
-  color: white;
-  font-size: 1.4em;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 4px;
-}
-
-/* Texte qui apparaît en fondu */
-.texte-fondu {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 16px; /* ✅ réduit */
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  color: #ecf0f1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.vignette-une:hover .texte-fondu {
-  opacity: 1;
-}
-
-.texte-fondu p {
-  margin: 0;
-  font-size: 0.95em;
-}
-
-/* Vignettes secondaires */
-.vignettes-droite {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px; /* ✅ réduit l’espace */
-  min-width: 200px;
-}
-
-.vignette.secondaire {
-  height: 100px; /* ✅ plus compact */
-}
-
-.vignette h3,
-.vignette h4 {
-  margin: 0;
-  color: #00bfff;
-}
-
-/* Bloc actus en deux colonnes */
-.actus-ligne {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px; /* ✅ réduit l’espace entre colonnes */
-  padding: 16px; /* ✅ réduit */
-}
-
-.vignette-actu {
+.logo-zone {
   display: flex;
   align-items: center;
-  background-color: transparent;
-  color: white;
-  text-decoration: none;
-  border-radius: 12px;
-  padding: 12px; /* ✅ réduit */
-  transition: transform 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* ✅ plus léger */
 }
 
-.vignette-actu:hover {
-  transform: scale(1.01);
+.logo {
+  max-height: 60px;
+  height: auto;
 }
 
-.vignette-actu img {
-  width: 120px;   /* ✅ plus compact */
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-right: 12px;
-}
-
-.contenu-actu {
+/* === MENU CENTRAL === */
+.menu-central {
   flex: 1;
-}
-
-.contenu-actu h4 {
-  margin: 0;
-  font-size: 20px; /* ✅ réduit */
-  color: #ecf0f1;
-}
-
-.contenu-actu p {
-  margin: 4px 0 0; /* ✅ réduit */
-  font-size: 14px;
-  color: #bbb;
-}
-
-.bloc.actus {
-  background-color: #34495e;
-  padding: 30px 16px; /* ✅ réduit */
-}
-
-.actus-ligne {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.titre-overlay {
-  padding: 8px;
-}
-
-.titre-overlay h4 {
-  margin: 0;
-  color: #00bfff;
-  font-size: 1em;
-}
-
-/* Bouton connexion */
-.nav-right {
-  margin-left: auto;
   display: flex;
-  align-items: center;
-  padding-right: 20px;
-}
-
-.btn-login {
-  background-color: #00bfff;
-  color: #fff;
-  padding: 8px 12px; /* ✅ réduit */
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.btn-login:hover {
-  background-color: #0099cc;
-}
-
-.icon-user {
-  height: 50px; /* ✅ réduit */
-  width: auto;
-}
-
-    /* === Carousel CSS intégré === */
-    .carousel-wrapper {
-      position: relative;
-      max-width: 900px;
-      margin: 40px auto;
-      overflow: hidden;
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease;
-      gap: 20px;
-    }
-
-    .vignette-illustration {
-      min-width: calc(50% - 10px); /* 2 visibles */
-      flex-shrink: 0;
-    }
-
-    .carre-image {
-      border-radius: 12px;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    .carre-image img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
-
-    .titre-sur-image {
-      padding: 10px;
-      color: #00bfff;
-      font-weight: 600;
-    }
-
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      color: white;
-      border: none;
-      font-size: 2em;
-      padding: 0 12px;
-      cursor: pointer;
-      z-index: 1;
-      border-radius: 8px;
-      opacity: 0.9;
-    }
-
-    .carousel-btn.left { left: 6px; }
-    .carousel-btn.right { right: 6px; }
-
-    .carousel-btn:disabled {
-      opacity: 0.4;
-      cursor: default;
-    }
-
-@media (max-width: 600px) {
-  .icon-user {
-    height: 40px;
-  }
-}
-
-/* Responsive : une seule colonne sur mobile */
-@media screen and (max-width: 768px) {
-  .actus-ligne {
-    grid-template-columns: 1fr;
-  }
-}
-
-.vignettes-carrees {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* ✅ réduit */
   justify-content: center;
-}
-
-.vignette-illustration {
-  width: 350px; /* ✅ plus compact */
-}
-
-.carre-image {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border-radius: 12px; /* ✅ réduit */
-}
-
-.carre-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 12px;
-}
-
-.titre-sur-image {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px; /* ✅ réduit */
-  background: rgba(0, 0, 0, 0.6);
-  color: #00bfff;
-  font-size: 16px; /* ✅ réduit */
-  font-weight: bold;
-  text-align: center;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
 }
 
 .menu-central ul {
   list-style: none;
   display: flex;
   gap: 30px;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .menu-central li {
@@ -389,7 +112,7 @@ p {
 }
 
 /* Affiche le sous-menu uniquement au survol */
-.menu-item:hover .submenu {
+.menu-item:hover > .submenu {
   display: flex;
 }
 
@@ -402,4 +125,204 @@ p {
 
 .submenu li a:hover {
   background-color: #003399;
+}
+
+/* === Icônes à droite === */
+.nav-right,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon img,
+.btn-search img {
+  width: 36px;
+  height: 36px;
+}
+
+/* === ACTUS === */
+.la-une-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.vignette.principale {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.vignette-une {
+  position: relative;
+  display: block;
+}
+
+.vignette-une img {
+  border-radius: 8px;
+  width: 100%;
+  display: block;
+}
+
+.titre-fixe {
+  position: absolute;
+  bottom: 35px;
+  left: 10px;
+  color: white;
+  font-size: 1.4em;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.texte-fondu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: #ecf0f1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.vignette-une:hover .texte-fondu {
+  opacity: 1;
+}
+
+.texte-fondu p {
+  margin: 0;
+  font-size: 0.95em;
+}
+
+/* Bloc actus */
+.actus-ligne {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vignette-actu {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 12px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.vignette-actu:hover {
+  transform: scale(1.01);
+}
+
+.vignette-actu img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 12px;
+}
+
+.contenu-actu h4 {
+  margin: 0;
+  font-size: 20px;
+  color: #ecf0f1;
+}
+
+.contenu-actu p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #bbb;
+}
+
+/* === Carousel === */
+.carousel-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 40px auto;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 20px;
+}
+
+.vignette-illustration {
+  min-width: calc(50% - 10px);
+  flex-shrink: 0;
+}
+
+.carre-image {
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+}
+
+.carre-image img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.titre-sur-image {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #00bfff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Boutons carousel */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  border: none;
+  font-size: 2em;
+  padding: 0 12px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+.carousel-btn.left { left: 6px; }
+.carousel-btn.right { right: 6px; }
+
+.carousel-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* === Responsive === */
+@media screen and (max-width: 768px) {
+  .actus-ligne {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .icon-user {
+    height: 40px;
+  }
 }
