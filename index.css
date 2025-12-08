@@ -344,27 +344,6 @@ p {
   border-bottom-right-radius: 12px;
 }
 
-.menu-central {
-  display: flex;
-  gap: 25px;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-}
-
-.menu-central a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 8px 16px;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-
-.menu-central a:hover {
-  background-color: #003399;
-}
-
 .menu-central ul {
   list-style: none;
   display: flex;
@@ -395,11 +374,11 @@ p {
 
 /* Sous-menu caché par défaut */
 .submenu {
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
   background-color: #002266;
-  display: none;
   flex-direction: column;
   min-width: 160px;
   border-radius: 4px;
@@ -419,7 +398,7 @@ p {
   background-color: #003399;
 }
 
-/* Affiche le sous-menu au survol */
+/* Affiche le sous-menu uniquement au survol */
 .menu-item:hover .submenu {
   display: flex;
 }
