@@ -261,15 +261,16 @@ p {
 }
 
 .vignette-illustration {
-  min-width: calc(50% - 10px);
   flex-shrink: 0;
+  width: 100%;
+  max-width: 300px; /* ✅ limite la taille */
+  margin: 0 auto;
 }
 
-/* ✅ carré garanti */
 .carre-image {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* ✅ carré parfait */
+  padding-top: 100%; /* carré parfait */
   border-radius: 12px;
   overflow: hidden;
 }
