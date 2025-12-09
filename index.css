@@ -269,7 +269,7 @@ p {
 .carre-image {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* carré parfait */
+  padding-top: 100%; /* ✅ carré parfait */
   border-radius: 12px;
   overflow: hidden;
 }
