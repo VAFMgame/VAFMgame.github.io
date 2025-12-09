@@ -31,3 +31,26 @@
       window.addEventListener('resize', updateCarousel);
       updateCarousel();
     });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const items = document.querySelectorAll('.menu-central .menu-item');
+
+  items.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      item.classList.add('open');
+    });
+    item.addEventListener('mouseleave', () => {
+      item.classList.remove('open');
+    });
+
+    // Accessibilité + fallback au clavier
+    const link = item.querySelector('a');
+    link.addEventListener('focus', () => item.classList.add('open'));
+    // Ferme quand on sort du dernier lien du submenu
+    const lastSubLink = item.querySelector('.submenu li:last-child a');
+    if (lastSubLink) {
+      lastSubLink.addEventListener('blur', () => item.classList.remove('open'));
+    }
+  });
+});
