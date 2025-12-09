@@ -299,6 +299,13 @@ p {
   border-bottom-right-radius: 12px;
 }
 
+.titre-sur-image .sous-texte {
+  display: block;
+  font-size: 12px;
+  color: #ecf0f1;
+  font-weight: normal;
+}
+
 /* Boutons carousel */
 .carousel-btn {
   position: absolute;
