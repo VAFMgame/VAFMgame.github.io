@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VAFM games</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/VAFM logo rouge.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VAFM Games</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/VAFM logo rouge.png">
   <link rel="stylesheet" href="style.css?v=2">
   <link rel="stylesheet" href="index.css?v=2">
   <link rel="stylesheet" href="recherche.css?v=2">
-  <script type="module" defer src="index.js"></script>
+  <script type="module" src="index.js" defer></script>
 </head>
 
 <body>
   <div class="page-wrapper">
+    <!-- Header -->
     <header class="top-bar">
       <div class="logo-zone">
-        <img src="assets/VAFM_GAME__2.png" alt="VAFM" class="logo">
+        <img src="assets/VAFM_GAME__2.png" alt="Logo VAFM" class="logo">
       </div>
-      
-<nav class="menu-central">
-  <ul>
-    <li class="menu-item">
-      <a href="#">Jeux</a>
-      <ul class="submenu">
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Aventure</a></li>
-        <li><a href="#">RPG</a></li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <a href="#">Vidéo</a>
-      <ul class="submenu">
-        <li><a href="#">Trailer</a></li>
-        <li><a href="#">Gameplay</a></li>
-        <li><a href="#">Interview</a></li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <a href="#">Nouveauté</a>
-      <ul class="submenu">
-        <li><a href="#">Switch</a></li>
-        <li><a href="#">PlayStation</a></li>
-        <li><a href="#">PC</a></li>
-      </ul>
-    </li>
-    <li><a href="#">Tests</a></li>
-  </ul>
-</nav>
-      
+
+      <!-- Menu principal -->
+      <nav class="menu-central">
+        <ul>
+          <li class="menu-item">
+            <a href="#">Jeux</a>
+            <ul class="submenu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Aventure</a></li>
+              <li><a href="#">RPG</a></li>
+            </ul>
+          </li>
+          <li class="menu-item">
+            <a href="#">Vidéo</a>
+            <ul class="submenu">
+              <li><a href="#">Trailer</a></li>
+              <li><a href="#">Gameplay</a></li>
+              <li><a href="#">Interview</a></li>
+            </ul>
+          </li>
+          <li class="menu-item">
+            <a href="#">Nouveauté</a>
+            <ul class="submenu">
+              <li><a href="#">Switch</a></li>
+              <li><a href="#">PlayStation</a></li>
+              <li><a href="#">PC</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Tests</a></li>
+        </ul>
+      </nav>
+
+      <!-- Icônes à droite -->
       <div class="nav-right">
         <a href="login.html" class="btn-icon" title="Connexion / Inscription">
           <img src="assets/logo_connexion.png" alt="Connexion" class="icon-user">
@@ -62,13 +65,14 @@
 
     <div class="sub-bar"></div>
 
+    <!-- Bloc la une -->
     <div class="bloc la-une">
       <div class="conteneur">
         <div class="la-une-grid">
           <div class="vignette principale">
             <a href="articles/article-une.html" class="vignette-une">
               <img src="assets/Nintendo decembre.jpg" alt="Nintendo nouveauté décembre">
-              <div class="titre-fixe">Les nouveauté de décembre de Nintendo dévoilé</div>
+              <div class="titre-fixe">Les nouveautés de décembre de Nintendo dévoilées</div>
               <div class="texte-fondu">
                 <p>Nintendo dévoile leurs nouveautés de décembre...</p>
               </div>
@@ -78,14 +82,15 @@
       </div>
     </div>
 
+    <!-- Bloc actus -->
     <div class="bloc actus">
       <div class="conteneur">
         <div class="actus-ligne">
           <a href="articles/article-1.html" class="vignette-actu">
-            <img src="assets/PS+ logo.jpg" alt="Elden Ring">
+            <img src="assets/PS+ logo.jpg" alt="PlayStation Plus décembre">
             <div class="contenu-actu">
-              <h4>Les jeux du Playstation+ de décembre</h4>
-              <p>Voici les jeux du Plastation+ de décembre</p>
+              <h4>Les jeux du PlayStation+ de décembre</h4>
+              <p>Voici les jeux du PlayStation+ de décembre</p>
             </div>
           </a>
 
@@ -108,7 +113,7 @@
       </div>
     </div>
 
-    <!-- === Bloc nouveautés avec carousel === -->
+    <!-- Bloc nouveautés avec carousel -->
     <div class="bloc nouveautes">
       <div class="conteneur">
         <div class="carousel-wrapper">
@@ -118,9 +123,9 @@
             <div class="vignette-illustration">
               <a href="articles/carousel-1.html">
                 <div class="carre-image">
-                  <img src="playstation/fortnite-chapter-seven-couverture.jpg" alt="Titre 1">
+                  <img src="playstation/fortnite-chapter-seven-couverture.jpg" alt="Fortnite Chapitre 7">
                   <div class="titre-sur-image">Le chapitre 7 de Fortnite arrive enfin !</div>
-                  <p>Le chapitre 7 est la ! Oui ! Oui ! Il est la</p>
+                  <p>Le chapitre 7 est là ! Oui ! Oui ! Il est là</p>
                 </div>
               </a>
             </div>
@@ -128,7 +133,7 @@
             <div class="vignette-illustration">
               <a href="articles/carousel-2.html">
                 <div class="carre-image">
-                  <img src="playstation/concour noel 2025.webp" alt="Titre 2">
+                  <img src="playstation/concour noel 2025.webp" alt="Concours Noël PlayStation">
                   <div class="titre-sur-image">Concours de Noël PlayStation</div>
                 </div>
               </a>
@@ -137,12 +142,11 @@
             <div class="vignette-illustration">
               <a href="articles/article2.html">
                 <div class="carre-image">
-                  <img src="assets/WWH.avif" alt="Titre 2">
+                  <img src="assets/WWH.avif" alt="Illustration Elden Ring">
                   <div class="titre-sur-image">Titre d’illustration 2</div>
                 </div>
               </a>
             </div>
-            <!-- Ajoute d’autres vignettes ici -->
           </div>
 
           <button class="carousel-btn right">&#10095;</button>
@@ -154,7 +158,7 @@
     <footer class="site-footer">
       <div class="footer-content">
         <div class="footer-logo">
-          <img src="assets/logo gris vafm.png" style="height:250px;" alt="Logo VAFM" />
+          <img src="assets/logo gris vafm.png" alt="Logo VAFM" style="height:250px;">
         </div>
         <div class="footer-links">
           <a href="contact.html">Nous contacter</a>
