@@ -248,7 +248,7 @@ p {
 
 .carousel-wrapper {
   position: relative;
-  max-width: 640px; /* 2 vignettes de 300px + 20px de gap */
+  max-width: 840px; /* 2 vignettes de 300px + 20px de gap */
   margin: 0 auto;
   overflow: hidden;
 }
