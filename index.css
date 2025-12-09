@@ -246,31 +246,28 @@ p {
   color: #bbb;
 }
 
-/* === Carousel === */
 .carousel-wrapper {
   position: relative;
-  max-width: 900px;
-  margin: 40px auto;
+  max-width: 100%;
   overflow: hidden;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease;
   gap: 20px;
+  transition: transform 0.5s ease;
+  width: max-content;
 }
 
 .vignette-illustration {
-  flex-shrink: 0;
-  width: 100%;
-  max-width: 300px; /* ✅ limite la taille */
-  margin: 0 auto;
+  flex: 0 0 auto;
+  width: 300px;
 }
 
 .carre-image {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* carré parfait */
+  padding-top: 100%;
   border-radius: 12px;
   overflow: hidden;
 }
