@@ -96,7 +96,6 @@ p {
   border-radius: 4px;
 }
 
-/* Sous-menu caché par défaut */
 .submenu {
   display: none;
   position: absolute;
@@ -107,19 +106,19 @@ p {
   min-width: 160px;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  z-index: 1000; /* augmenté pour éviter qu'il soit caché */
+  z-index: 9999;
   padding: 0;
   margin: 0;
 }
 
-/* Affiche le sous-menu au survol (desktop) */
+/* Affiche au survol (desktop) */
 .menu-item:hover > .submenu {
   display: flex;
 }
 
-/* Affiche le sous-menu quand la classe .open est ajoutée (JS au clic) */
+/* Affiche au clic (mobile ou JS) */
 .submenu.open {
-  display: flex;
+  display: flex !important;
 }
 
 /* Style des liens du sous-menu */
