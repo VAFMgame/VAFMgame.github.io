@@ -34,15 +34,29 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCarousel();
 
   // === MENU DÉROULANT ===
-  const menuItems = document.querySelectorAll(".menu-item > a");
+  const menuLinks = document.querySelectorAll(".menu-item > a");
 
-  menuItems.forEach(link => {
+  menuLinks.forEach(link => {
     link.addEventListener("click", e => {
-      e.preventDefault(); // empêche la navigation
+      e.preventDefault();
       const submenu = link.nextElementSibling;
+
+      // Ferme les autres sous-menus
+      document.querySelectorAll(".submenu.open").forEach(sub => {
+        if (sub !== submenu) sub.classList.remove("open");
+      });
+
+      // Ouvre/ferme celui cliqué
       if (submenu && submenu.classList.contains("submenu")) {
         submenu.classList.toggle("open");
       }
     });
+  });
+
+  // Ferme si clic en dehors du menu
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".menu-item")) {
+      document.querySelectorAll(".submenu.open").forEach(sub => sub.classList.remove("open"));
+    }
   });
 });
