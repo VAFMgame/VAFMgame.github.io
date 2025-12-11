@@ -81,3 +81,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".menu-item > a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault(); // empêche la navigation
+      const submenu = link.nextElementSibling;
+      if (submenu && submenu.classList.contains("submenu")) {
+        submenu.classList.toggle("open");
+      }
+    });
+  });
+});
