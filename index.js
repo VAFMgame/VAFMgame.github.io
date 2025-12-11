@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCarousel();
 
   // === MENU DÉROULANT ===
-document.addEventListener("DOMContentLoaded", () => {
   const menuLinks = document.querySelectorAll(".menu-item > a");
 
   menuLinks.forEach(link => {
