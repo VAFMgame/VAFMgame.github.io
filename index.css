@@ -107,22 +107,28 @@ p {
   min-width: 160px;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  z-index: 100;
+  z-index: 1000; /* augmenté pour éviter qu'il soit caché */
   padding: 0;
   margin: 0;
 }
 
-/* Affiche le sous-menu uniquement au survol */
+/* Affiche le sous-menu au survol (desktop) */
 .menu-item:hover > .submenu {
   display: flex;
 }
 
+/* Affiche le sous-menu quand la classe .open est ajoutée (JS au clic) */
+.submenu.open {
+  display: flex;
+}
+
+/* Style des liens du sous-menu */
 .submenu li a {
   padding: 10px 15px;
   font-weight: normal;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   color: white;
-  white-space: nowrap; /* ✅ évite les retours à la ligne */
+  white-space: nowrap;
 }
 
 .submenu li a:hover {
