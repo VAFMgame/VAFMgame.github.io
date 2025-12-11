@@ -347,3 +347,6 @@ p {
   }
 }
 
+.submenu.open {
+  display: flex !important;
+}
