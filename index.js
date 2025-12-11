@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateCarousel() {
     if (!items.length) return;
-    const itemWidth = items[0].offsetWidth + 20; // largeur + gap
+    const itemWidth = items[0].offsetWidth + 20;
     track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
     btnLeft.disabled = currentIndex === 0;
     btnRight.disabled = currentIndex >= items.length - visibleItems;
@@ -41,19 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const submenu = link.nextElementSibling;
 
-      // Ferme les autres sous-menus
       document.querySelectorAll(".submenu.open").forEach(sub => {
         if (sub !== submenu) sub.classList.remove("open");
       });
 
-      // Ouvre/ferme celui cliqué
       if (submenu && submenu.classList.contains("submenu")) {
         submenu.classList.toggle("open");
       }
     });
   });
 
-  // Ferme si clic en dehors du menu
   document.addEventListener("click", e => {
     if (!e.target.closest(".menu-item")) {
       document.querySelectorAll(".submenu.open").forEach(sub => sub.classList.remove("open"));
