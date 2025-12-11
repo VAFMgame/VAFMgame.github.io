@@ -54,3 +54,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const menuItems = document.querySelectorAll(".menu-item");
+
+  menuItems.forEach(item => {
+    const submenu = item.querySelector(".submenu");
+    const link = item.querySelector("a");
+
+    if (submenu && link) {
+      link.addEventListener("click", e => {
+        e.preventDefault(); // empêche le lien de naviguer
+        submenu.classList.toggle("open");
+      });
+
+      // optionnel : referme les autres sous-menus
+      link.addEventListener("mouseenter", () => {
+        menuItems.forEach(other => {
+          if (other !== item) {
+            const otherSub = other.querySelector(".submenu");
+            if (otherSub) otherSub.classList.remove("open");
+          }
+        });
+      });
+    }
+  });
+});
