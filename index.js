@@ -1,26 +1,26 @@
-// === MENU DÉROULANT : hover desktop, click only on touch devices ===
-const isTouchDevice = (() => {
-  try {
-    return (
-      'ontouchstart' in window ||
-      navigator.maxTouchPoints > 0 ||
-      (window.matchMedia && window.matchMedia('(hover: none)').matches)
-    );
-  } catch {
-    return false;
-  }
-})();
+// MENU DÉROULANT — version corrigée et robuste
+document.addEventListener('DOMContentLoaded', () => {
+  const isTouchDevice = (() => {
+    try {
+      return (
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        (window.matchMedia && window.matchMedia('(hover: none)').matches)
+      );
+    } catch {
+      return false;
+    }
+  })();
 
-const menuItems = Array.from(document.querySelectorAll('.menu-item'));
-const menuLinks = Array.from(document.querySelectorAll('.menu-item > a'));
+  const menuRoot = document.querySelector('body'); // délégation globale
+  if (!menuRoot) return;
 
-if (!menuLinks.length) {
-  console.warn('Menu: aucun lien .menu-item > a trouvé.');
-} else {
-  // Assurer que chaque menu-item peut positionner son sous-menu
-  menuItems.forEach(mi => {
-    if (getComputedStyle(mi).position === 'static') mi.style.position = 'relative';
-  });
+  const ensurePosition = () => {
+    document.querySelectorAll('.menu-item').forEach(mi => {
+      if (getComputedStyle(mi).position === 'static') mi.style.position = 'relative';
+    });
+  };
+  ensurePosition();
 
   const closeAll = (except = null) => {
     document.querySelectorAll('.submenu.open').forEach(sub => {
@@ -32,90 +32,100 @@ if (!menuLinks.length) {
     });
   };
 
-  // Nettoyage initial
-  closeAll();
+  // Initial ARIA setup
+  document.querySelectorAll('.menu-item > a').forEach(link => {
+    const next = link.nextElementSibling;
+    const hasSub = next && next.classList && next.classList.contains('submenu');
+    link.setAttribute('aria-haspopup', hasSub ? 'true' : 'false');
+    link.setAttribute('aria-expanded', 'false');
+  });
 
-  // Pour éviter d'attacher plusieurs fois les mêmes handlers, on mémorise les liens traités
-  const handled = new WeakSet();
-
-  menuLinks.forEach(link => {
-    if (handled.has(link)) return;
-    handled.add(link);
+  // Délégation click : gère toggle sur mobile/tactile et placeholders sur desktop
+  menuRoot.addEventListener('click', (e) => {
+    const link = e.target.closest('.menu-item > a');
+    if (!link) {
+      // clic hors menu-item : fermer
+      if (!e.target.closest('.menu-item')) closeAll();
+      return;
+    }
 
     const submenu = link.nextElementSibling && link.nextElementSibling.classList.contains('submenu')
       ? link.nextElementSibling
       : null;
 
-    // ARIA
-    link.setAttribute('aria-haspopup', submenu ? 'true' : 'false');
-    link.setAttribute('aria-expanded', 'false');
-
+    // Desktop : laisser navigation si href réel, empêcher seulement les placeholders
     if (!isTouchDevice) {
-      // Desktop : laisser CSS :hover gérer l'ouverture. Empêcher navigation pour placeholder.
-      link.addEventListener('click', e => {
-        const href = (link.getAttribute('href') || '').trim();
-        if (!href || href === '#' || href.startsWith('javascript:')) e.preventDefault();
-      });
+      const href = (link.getAttribute('href') || '').trim();
+      if (!href || href === '#' || href.startsWith('javascript:')) e.preventDefault();
+      // on ne toggle pas via JS sur desktop (CSS :hover gère l'affichage)
+      return;
+    }
 
-      // Fermer au focusout (clavier) si le focus sort du menu-item
-      const parent = link.closest('.menu-item');
-      if (parent) {
-        parent.addEventListener('focusout', ev => {
-          if (!parent.contains(ev.relatedTarget)) {
-            if (submenu) {
-              submenu.classList.remove('open');
-              link.setAttribute('aria-expanded', 'false');
-            }
-          }
-        });
-      }
-    } else {
-      // Mobile / tactile : toggle au tap
-      const toggle = e => {
-        if (e instanceof MouseEvent && (e.ctrlKey || e.metaKey || e.button === 1)) return;
-        e.preventDefault();
-        if (!submenu) return;
-        closeAll(submenu);
-        const opened = submenu.classList.toggle('open');
-        link.setAttribute('aria-expanded', opened ? 'true' : 'false');
-      };
+    // Touch device : toggle du sous-menu
+    // Laisser ctrl/meta/middle click passer
+    if (e instanceof MouseEvent && (e.ctrlKey || e.metaKey || e.button === 1)) return;
+    e.preventDefault();
+    if (!submenu) return;
+    closeAll(submenu);
+    const opened = submenu.classList.toggle('open');
+    link.setAttribute('aria-expanded', opened ? 'true' : 'false');
+  }, { passive: false });
 
-      // Attacher handlers une seule fois
-      link.addEventListener('click', toggle);
-      link.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggle(e);
-        } else if (e.key === 'Escape') {
-          if (submenu && submenu.classList.contains('open')) {
-            submenu.classList.remove('open');
-            link.setAttribute('aria-expanded', 'false');
-            link.focus();
-          }
-        }
-      });
-      link.addEventListener('pointerup', e => {
-        if (e.pointerType === 'touch') toggle(e);
-      }, { passive: true });
+  // Délégation pointerup pour compatibilité tactile (prévenir double triggers)
+  menuRoot.addEventListener('pointerup', (e) => {
+    if (!isTouchDevice) return;
+    const link = e.target.closest('.menu-item > a');
+    if (!link) return;
+    if (e.pointerType === 'touch') {
+      // pointerup déclenchera le même toggle que le click handler, mais on garde pour compatibilité
+      // rien à faire ici pour éviter double toggle
+    }
+  }, { passive: true });
+
+  // Clavier : Enter/Space pour toggle sur éléments avec sous-menu, Escape pour fermer
+  document.addEventListener('keydown', (e) => {
+    const active = document.activeElement;
+    if (e.key === 'Escape') {
+      closeAll();
+      return;
+    }
+    if ((e.key === 'Enter' || e.key === ' ') && active && active.matches && active.matches('.menu-item > a')) {
+      const link = active;
+      const submenu = link.nextElementSibling && link.nextElementSibling.classList.contains('submenu')
+        ? link.nextElementSibling
+        : null;
+      if (!submenu) return;
+      e.preventDefault();
+      // toggle accessible
+      const opened = submenu.classList.toggle('open');
+      link.setAttribute('aria-expanded', opened ? 'true' : 'false');
+      if (!opened) link.focus();
     }
   });
 
-  // Fermer quand on clique en dehors du menu (mais pas si on clique dans un sous-menu)
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.menu-item')) closeAll();
+  // Focusout sur chaque menu-item pour fermer proprement au clavier
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('focusout', (ev) => {
+      if (!item.contains(ev.relatedTarget)) {
+        const submenu = item.querySelector('.submenu');
+        const trigger = item.querySelector('a');
+        if (submenu && submenu.classList.contains('open')) {
+          submenu.classList.remove('open');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
   });
 
-  // Fermer avec Escape (global)
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeAll();
-  });
-
-  // Fermer au resize et changement d'orientation (debounced)
-  let resizeCloseTimer = null;
+  // Fermer au clic extérieur (déjà géré par délégation click) et au resize/orientation
+  let resizeTimer = null;
   const onResize = () => {
-    clearTimeout(resizeCloseTimer);
-    resizeCloseTimer = setTimeout(() => closeAll(), 150);
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => closeAll(), 150);
   };
   window.addEventListener('resize', onResize);
   window.addEventListener('orientationchange', onResize);
-}
+
+  // Nettoyage initial
+  closeAll();
+});
