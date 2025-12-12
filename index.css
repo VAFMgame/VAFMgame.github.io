@@ -1,264 +1,304 @@
+:root{
+  --bg: #1a2a3a;
+  --panel: #2c3e50;
+  --panel-2: #34495e;
+  --accent: #00bfff;
+  --muted: #ecf0f1;
+  --menu-bg: #000066;
+  --submenu-bg: #002266;
+  --submenu-shadow: rgba(0,0,0,0.35);
+  --radius: 8px;
+  --gap: 20px;
+}
+
 /* === Général === */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background-color: #1a2a3a;
-  color: #ecf0f1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Orbitron',sans-serif;
+  background-color:var(--bg);
+  color:var(--muted);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-.page-wrapper,
-header,
-.main,
-footer {
-  overflow: visible; /* évite que les sous-menus soient masqués par un parent */
-}
+/* Permet aux sous-menus d'être visibles hors du flux si nécessaire */
+.page-wrapper,header,.main,footer{overflow:visible}
 
 /* === Conteneurs === */
-.conteneur {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
-}
+.conteneur{max-width:1200px;margin:0 auto;padding:0 16px}
+.bloc{width:100%;padding:20px 16px}
+.bloc + .bloc{margin-top:0}
 
-.bloc { width: 100%; padding: 20px 16px; }
-.bloc + .bloc { margin-top: 0; }
+/* Sections */
+.la-une,.nouveautes{background-color:var(--panel)}
+.actus{background-color:var(--panel-2)}
 
-.la-une,
-.nouveautes { background-color: #2c3e50; }
-.actus { background-color: #34495e; }
-
-h2 { font-size: 2.5em; color: #00bfff; margin-bottom: 12px; }
-p { font-size: 1.2em; line-height: 1.4em; }
+h2{font-size:2.5em;color:var(--accent);margin-bottom:12px}
+p{font-size:1.2em;line-height:1.4}
 
 /* === Header === */
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #000066;
-  padding: 15px 20px;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 10;
+.top-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background-color:var(--menu-bg);
+  padding:15px 20px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:10;
 }
-
-.logo-zone { display: flex; align-items: center; }
-.logo { max-height: 80px; height: auto; }
+.logo-zone{display:flex;align-items:center}
+.logo{max-height:80px;height:auto}
 
 /* === MENU CENTRAL === */
-.menu-central { flex: 1; display: flex; justify-content: center; align-items: center; }
-.menu-central ul {
-  list-style: none;
-  display: flex;
-  gap: 48px;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-  flex-wrap: wrap;
+.menu-central{flex:1;display:flex;justify-content:center;align-items:center}
+.menu-central ul{
+  list-style:none;
+  display:flex;
+  gap:48px;
+  margin:0;
+  padding:0;
+  align-items:center;
+  flex-wrap:wrap;
 }
 
 /* Assure que chaque item peut positionner son sous-menu */
 .menu-central li,
-.menu-item { position: relative; }
+.menu-item{position:relative}
 
 /* Liens du menu */
-.menu-central a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-  padding: 8px 16px;
-  display: block;
-  transition: background 0.18s ease, color 0.18s ease;
-  cursor: pointer;
-  border-radius: 6px;
+.menu-central a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  padding:8px 16px;
+  display:block;
+  transition:background .18s ease,color .18s ease;
+  cursor:pointer;
+  border-radius:6px;
 }
-
 .menu-central a:hover,
-.menu-central a:focus { background-color: #003399; outline: none; }
+.menu-central a:focus{background-color:#003399;outline:none}
 
 /* === SOUS-MENU ===
    - caché par défaut
    - s'affiche au hover sur les appareils pointer-capables
    - s'affiche au clic via .open (JS) pour mobile
 */
-.submenu {
-  display: none;
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  background-color: #002266;
-  flex-direction: column;
-  min-width: 160px;
-  border-radius: 6px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-  z-index: 99999;
-  padding: 6px 0;
-  margin: 0;
-  opacity: 0;
-  transform-origin: top left;
-  transform: translateY(-6px) scaleY(0.98);
-  transition: opacity 0.18s ease, transform 0.18s ease;
-  pointer-events: none;
+.submenu{
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  background-color:var(--submenu-bg);
+  flex-direction:column;
+  min-width:160px;
+  border-radius:6px;
+  box-shadow:0 8px 20px var(--submenu-shadow);
+  z-index:9999;
+  padding:6px 0;
+  margin:0;
+  opacity:0;
+  transform-origin:top left;
+  transform:translateY(-6px) scaleY(.98);
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
 }
 
 /* Liens du sous-menu */
-.submenu li a {
-  padding: 10px 14px;
-  font-weight: 400;
-  color: #fff;
-  display: block;
-  white-space: nowrap;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+.submenu li a{
+  padding:10px 14px;
+  font-weight:400;
+  color:#fff;
+  display:block;
+  white-space:nowrap;
+  border-bottom:1px solid rgba(255,255,255,0.06);
 }
-
 .submenu li a:hover,
-.submenu li a:focus { background-color: #003399; color: #fff; }
+.submenu li a:focus{background-color:#003399;color:#fff}
 
 /* Affichage au survol (desktop, uniquement si l'appareil supporte hover) */
-@media (hover: hover) and (pointer: fine) {
+@media (hover:hover) and (pointer:fine){
   .menu-item:hover > .submenu,
-  .menu-item:focus-within > .submenu {
-    display: flex;
-    opacity: 1;
-    transform: translateY(0) scaleY(1);
-    pointer-events: auto;
+  .menu-item:focus-within > .submenu{
+    display:flex;
+    opacity:1;
+    transform:translateY(0) scaleY(1);
+    pointer-events:auto;
   }
 }
 
 /* Affichage au clic (mobile) : JS ajoute .open */
-.submenu.open {
-  display: flex !important;
-  opacity: 1 !important;
-  transform: translateY(0) scaleY(1) !important;
-  pointer-events: auto !important;
+.submenu.open{
+  display:flex !important;
+  opacity:1 !important;
+  transform:translateY(0) scaleY(1) !important;
+  pointer-events:auto !important;
 }
 
-/* Si JS n'est présent que sur certains appareils, assure fallback tactile */
-@media (max-width: 900px) {
-  .submenu {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0;
-    min-width: 180px;
-  }
+/* Fallback tactile */
+@media (max-width:900px){
+  .submenu{position:absolute;top:calc(100% + 6px);left:0;min-width:180px}
 }
 
 /* === Icônes / droite === */
-.nav-right,
-.header-right { display: flex; align-items: center; gap: 10px; }
-.btn-icon img,
-.btn-search img { width: 54px; height: 54px; object-fit: contain; }
+.nav-right,.header-right{display:flex;align-items:center;gap:10px}
+.btn-icon img,.btn-search img{width:54px;height:54px;object-fit:contain}
 
 /* === ACTUS / vignettes === */
-.la-une-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
-.vignette.principale { max-width: 1000px; width: 100%; margin: 0 auto; }
-.vignette-une { position: relative; display: block; }
-.vignette-une img { border-radius: 8px; width: 100%; display: block; }
+.la-une-grid{display:flex;justify-content:center;align-items:center;flex-wrap:wrap}
+.vignette.principale{max-width:1000px;width:100%;margin:0 auto}
+.vignette-une{position:relative;display:block}
+.vignette-une img{border-radius:8px;width:100%;display:block}
 
-.titre-fixe {
-  position: absolute;
-  bottom: 35px;
-  left: 10px;
-  color: #fff;
-  font-size: 1.4em;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 4px;
-  background: rgba(0,0,0,0.35);
+.titre-fixe{
+  position:absolute;
+  bottom:35px;
+  left:10px;
+  color:#fff;
+  font-size:1.4em;
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:4px;
+  background:rgba(0,0,0,0.35);
 }
 
-.texte-fondu {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  color: #ecf0f1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+.texte-fondu{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  padding:16px;
+  background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color:var(--muted);
+  opacity:0;
+  transition:opacity .4s ease;
 }
 .vignette-une:hover .texte-fondu,
-.vignette-une:focus-within .texte-fondu { opacity: 1; }
-
-.texte-fondu p { margin: 0; font-size: 0.95em; }
+.vignette-une:focus-within .texte-fondu{opacity:1}
+.texte-fondu p{margin:0;font-size:.95em}
 
 /* === Bloc actus === */
-.actus-ligne {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  padding: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
+.actus-ligne{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  padding:16px;
+  max-width:1200px;
+  margin:0 auto;
+}
+.vignette-actu{
+  display:flex;
+  align-items:center;
+  background-color:transparent;
+  color:white;
+  text-decoration:none;
+  border-radius:12px;
+  padding:12px;
+  transition:transform .3s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+.vignette-actu:hover{transform:scale(1.01)}
+.vignette-actu img{width:120px;height:120px;object-fit:cover;border-radius:10px;margin-right:12px}
+.contenu-actu h4{margin:0;font-size:20px;color:var(--muted)}
+.contenu-actu p{margin:4px 0 0;font-size:14px;color:#bbb}
+
+/* === Carousel ===
+   - width: max-content peut poser problème pour le responsive, on laisse flex gérer la largeur
+*/
+.carousel-wrapper{
+  position:relative;
+  max-width:840px;
+  margin:0 auto;
+  overflow:hidden;
+}
+.carousel-track{
+  display:flex;
+  gap:var(--gap);
+  transition:transform .5s ease;
+  width:auto; /* évite overflow horizontal inattendu */
+  align-items:stretch;
+}
+.vignette-illustration{
+  flex:0 0 auto;
+  width:400px;
+  box-sizing:border-box;
 }
 
-.vignette-actu {
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  color: white;
-  text-decoration: none;
-  border-radius: 12px;
-  padding: 12px;
-  transition: transform 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+/* Image carré responsive */
+.carre-image{
+  position:relative;
+  width:100%;
+  padding-top:100%;
+  border-radius:var(--radius);
+  overflow:hidden;
 }
-.vignette-actu:hover { transform: scale(1.01); }
-
-.vignette-actu img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-right: 12px;
+.carre-image img{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:var(--radius);
 }
 
-.contenu-actu h4 { margin: 0; font-size: 20px; color: #ecf0f1; }
-.contenu-actu p { margin: 4px 0 0; font-size: 14px; color: #bbb; }
-
-/* === Carousel === */
-.carousel-wrapper { position: relative; max-width: 840px; margin: 0 auto; overflow: hidden; }
-.carousel-track { display: flex; gap: 20px; transition: transform 0.5s ease; width: max-content; }
-.vignette-illustration { flex: 0 0 auto; width: 400px; }
-
-.carre-image { position: relative; width: 100%; padding-top: 100%; border-radius: 12px; overflow: hidden; }
-.carre-image img {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;
+/* Texte sur image */
+.titre-sur-image{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  padding:10px;
+  background:rgba(0,0,0,0.6);
+  color:var(--accent);
+  font-size:16px;
+  font-weight:700;
+  text-align:center;
+  border-bottom-left-radius:var(--radius);
+  border-bottom-right-radius:var(--radius);
 }
-
-.titre-sur-image {
-  position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px;
-  background: rgba(0,0,0,0.6); color: #00bfff; font-size: 16px; font-weight: 700; text-align: center;
-  border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
-}
-.titre-sur-image .sous-texte { display: block; font-size: 12px; color: #ecf0f1; font-weight: 400; }
+.titre-sur-image .sous-texte{display:block;font-size:12px;color:var(--muted);font-weight:400}
 
 /* === Boutons carousel === */
-.carousel-btn {
-  position: absolute; top: 50%; transform: translateY(-50%); color: #fff; border: none; font-size: 2em;
-  padding: 0 12px; cursor: pointer; z-index: 20; border-radius: 8px; opacity: 0.95; background: rgba(0,0,0,0.45);
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  color:#fff;
+  border:none;
+  font-size:1.8em;
+  padding:0 12px;
+  cursor:pointer;
+  z-index:20;
+  border-radius:8px;
+  opacity:.95;
+  background:rgba(0,0,0,0.45);
 }
-.carousel-btn.left { left: 6px; } .carousel-btn.right { right: 6px; }
-.carousel-btn:disabled { opacity: 0.4; cursor: default; }
+.carousel-btn.left{left:6px}
+.carousel-btn.right{right:6px}
+.carousel-btn:disabled{opacity:.4;cursor:default}
+
+/* Amélioration accessibilité : focus visible pour boutons */
+.carousel-btn:focus{outline:3px solid rgba(0,191,255,0.25);outline-offset:2px}
 
 /* === Responsive === */
-@media screen and (max-width: 768px) {
-  .actus-ligne { grid-template-columns: 1fr; }
-  .menu-central ul { gap: 12px; }
-  .vignette-illustration { width: 260px; }
+@media screen and (max-width:1000px){
+  .vignette-illustration{width:320px}
 }
-
-@media (max-width: 600px) {
-  .icon-user { height: 40px; }
-  /* Sur petits écrans, rendre le sous-menu plus large et accessible */
-  .submenu { min-width: 200px; left: 0; right: auto; }
+@media screen and (max-width:768px){
+  .actus-ligne{grid-template-columns:1fr}
+  .menu-central ul{gap:12px}
+  .vignette-illustration{width:260px}
+}
+@media (max-width:600px){
+  .icon-user{height:40px}
+  .submenu{min-width:200px;left:0;right:auto}
+  .vignette-illustration{width:220px}
 }
 
 /* === Accessibilité focus visible === */
 .menu-central a:focus,
-.submenu li a:focus { outline: 3px solid rgba(0,191,255,0.25); outline-offset: 2px; }
+.submenu li a:focus{outline:3px solid rgba(0,191,255,0.25);outline-offset:2px}
