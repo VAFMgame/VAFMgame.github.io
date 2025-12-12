@@ -2,24 +2,25 @@
 const isTouchDevice =
   ('ontouchstart' in window) ||
   navigator.maxTouchPoints > 0 ||
-  window.matchMedia('(hover: none)').matches;
+  (window.matchMedia && window.matchMedia('(hover: none)').matches);
 
+const menuItems = Array.from(document.querySelectorAll('.menu-item'));
 const menuLinks = Array.from(document.querySelectorAll('.menu-item > a'));
 
 if (!menuLinks.length) {
   console.warn('Menu: aucun lien .menu-item > a trouvé.');
 } else {
   // chaque menu-item doit pouvoir positionner son sous-menu
-  document.querySelectorAll('.menu-item').forEach(mi => {
+  menuItems.forEach(mi => {
     if (getComputedStyle(mi).position === 'static') mi.style.position = 'relative';
   });
 
   const closeAll = (except = null) => {
-    document.querySelectorAll('.submenu.open').forEach(s => {
-      if (s !== except) {
-        s.classList.remove('open');
-        const prev = s.previousElementSibling;
-        if (prev) prev.setAttribute('aria-expanded', 'false');
+    document.querySelectorAll('.submenu.open').forEach(sub => {
+      if (sub !== except) {
+        sub.classList.remove('open');
+        const trigger = sub.previousElementSibling;
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
       }
     });
   };
@@ -28,23 +29,23 @@ if (!menuLinks.length) {
   closeAll();
 
   menuLinks.forEach(link => {
-    link.setAttribute('role', 'button');
-    link.setAttribute('aria-haspopup', 'true');
-    link.setAttribute('aria-expanded', 'false');
-    link.setAttribute('tabindex', '0');
-
     const submenu = link.nextElementSibling;
 
+    // Attributs ARIA (sans changer le rôle du lien)
+    link.setAttribute('aria-haspopup', 'true');
+    link.setAttribute('aria-expanded', 'false');
+
     if (!isTouchDevice) {
-      // Desktop : clic ne bloque pas le menu
+      // Desktop : clic ne bloque pas le menu (on laisse la navigation si href réel)
       link.addEventListener('click', e => {
-        const href = link.getAttribute('href');
+        const href = link.getAttribute('href') || '';
         if (!href || href === '#' || href.startsWith('javascript:')) {
           e.preventDefault();
         }
       });
+      // Sur desktop, l'ouverture/fermeture se fait via CSS :hover (rien de plus ici)
     } else {
-      // Mobile : toggle au clic/tap
+      // Mobile/tactile : toggle au clic/tap
       const toggle = e => {
         if (e instanceof MouseEvent && (e.ctrlKey || e.metaKey || e.button === 1)) return;
         e.preventDefault();
@@ -77,10 +78,12 @@ if (!menuLinks.length) {
     if (e.key === 'Escape') closeAll();
   });
 
-  // Fermer au resize
+  // Fermer au resize et changement d’orientation
   let resizeCloseTimer = null;
-  window.addEventListener('resize', () => {
+  const onResize = () => {
     clearTimeout(resizeCloseTimer);
     resizeCloseTimer = setTimeout(() => closeAll(), 150);
-  });
+  };
+  window.addEventListener('resize', onResize);
+  window.addEventListener('orientationchange', onResize);
 }
