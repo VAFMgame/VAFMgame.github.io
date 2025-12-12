@@ -1,4 +1,4 @@
-// MENU DÉROULANT — version corrigée et robuste
+// MENU DÉROULANT — version finale corrigée
 document.addEventListener('DOMContentLoaded', () => {
   const isTouchDevice = (() => {
     try {
@@ -12,15 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  const menuRoot = document.querySelector('body'); // délégation globale
+  // limiter la délégation au menu central si possible
+  const menuRoot = document.querySelector('.menu-central') || document.body;
   if (!menuRoot) return;
 
-  const ensurePosition = () => {
-    document.querySelectorAll('.menu-item').forEach(mi => {
-      if (getComputedStyle(mi).position === 'static') mi.style.position = 'relative';
-    });
-  };
-  ensurePosition();
+  // s'assurer que chaque .menu-item peut positionner son sous-menu
+  document.querySelectorAll('.menu-item').forEach(mi => {
+    if (getComputedStyle(mi).position === 'static') mi.style.position = 'relative';
+  });
 
   const closeAll = (except = null) => {
     document.querySelectorAll('.submenu.open').forEach(sub => {
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Initial ARIA setup
+  // initialisation ARIA
   document.querySelectorAll('.menu-item > a').forEach(link => {
     const next = link.nextElementSibling;
     const hasSub = next && next.classList && next.classList.contains('submenu');
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     link.setAttribute('aria-expanded', 'false');
   });
 
-  // Délégation click : gère toggle sur mobile/tactile et placeholders sur desktop
+  // click delegation : desktop placeholders / tactile toggle
   menuRoot.addEventListener('click', (e) => {
     const link = e.target.closest('.menu-item > a');
     if (!link) {
@@ -53,16 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
       ? link.nextElementSibling
       : null;
 
-    // Desktop : laisser navigation si href réel, empêcher seulement les placeholders
+    // Desktop : laisser la navigation si href réel, empêcher seulement les placeholders
     if (!isTouchDevice) {
       const href = (link.getAttribute('href') || '').trim();
       if (!href || href === '#' || href.startsWith('javascript:')) e.preventDefault();
-      // on ne toggle pas via JS sur desktop (CSS :hover gère l'affichage)
       return;
     }
 
     // Touch device : toggle du sous-menu
-    // Laisser ctrl/meta/middle click passer
     if (e instanceof MouseEvent && (e.ctrlKey || e.metaKey || e.button === 1)) return;
     e.preventDefault();
     if (!submenu) return;
@@ -71,18 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     link.setAttribute('aria-expanded', opened ? 'true' : 'false');
   }, { passive: false });
 
-  // Délégation pointerup pour compatibilité tactile (prévenir double triggers)
-  menuRoot.addEventListener('pointerup', (e) => {
-    if (!isTouchDevice) return;
-    const link = e.target.closest('.menu-item > a');
-    if (!link) return;
-    if (e.pointerType === 'touch') {
-      // pointerup déclenchera le même toggle que le click handler, mais on garde pour compatibilité
-      // rien à faire ici pour éviter double toggle
-    }
-  }, { passive: true });
-
-  // Clavier : Enter/Space pour toggle sur éléments avec sous-menu, Escape pour fermer
+  // clavier : Enter/Space toggle, Escape ferme tout
   document.addEventListener('keydown', (e) => {
     const active = document.activeElement;
     if (e.key === 'Escape') {
@@ -96,14 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
         : null;
       if (!submenu) return;
       e.preventDefault();
-      // toggle accessible
       const opened = submenu.classList.toggle('open');
       link.setAttribute('aria-expanded', opened ? 'true' : 'false');
       if (!opened) link.focus();
     }
   });
 
-  // Focusout sur chaque menu-item pour fermer proprement au clavier
+  // focusout : fermer proprement quand le focus sort du menu-item
   document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('focusout', (ev) => {
       if (!item.contains(ev.relatedTarget)) {
@@ -117,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Fermer au clic extérieur (déjà géré par délégation click) et au resize/orientation
+  // fermer au resize / orientation (debounced)
   let resizeTimer = null;
   const onResize = () => {
     clearTimeout(resizeTimer);
@@ -126,6 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', onResize);
   window.addEventListener('orientationchange', onResize);
 
-  // Nettoyage initial
+  // état initial
   closeAll();
 });
