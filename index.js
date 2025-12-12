@@ -1,18 +1,27 @@
 // === MENU DÉROULANT : hover desktop, click only on touch devices ===
-const isTouchDevice =
-  ('ontouchstart' in window) ||
-  navigator.maxTouchPoints > 0 ||
-  (window.matchMedia && window.matchMedia('(hover: none)').matches);
+const isTouchDevice = (() => {
+  try {
+    return (
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
+      (window.matchMedia && window.matchMedia('(hover: none)').matches)
+    );
+  } catch {
+    return false;
+  }
+})();
 
-const menuItems = Array.from(document.querySelectorAll('.menu-item'));
-const menuLinks = Array.from(document.querySelectorAll('.menu-item > a'));
+const menuItems = document.querySelectorAll('.menu-item');
+const menuLinks = document.querySelectorAll('.menu-item > a');
 
 if (!menuLinks.length) {
   console.warn('Menu: aucun lien .menu-item > a trouvé.');
 } else {
   // chaque menu-item doit pouvoir positionner son sous-menu
   menuItems.forEach(mi => {
-    if (getComputedStyle(mi).position === 'static') mi.style.position = 'relative';
+    if (getComputedStyle(mi).position === 'static') {
+      mi.style.position = 'relative';
+    }
   });
 
   const closeAll = (except = null) => {
@@ -25,25 +34,27 @@ if (!menuLinks.length) {
     });
   };
 
-  // Nettoyage au chargement
+  // Nettoyage initial
   closeAll();
 
   menuLinks.forEach(link => {
     const submenu = link.nextElementSibling;
 
-    // Attributs ARIA (sans changer le rôle du lien)
-    link.setAttribute('aria-haspopup', 'true');
-    link.setAttribute('aria-expanded', 'false');
+    // Attributs ARIA
+    if (submenu) {
+      link.setAttribute('aria-haspopup', 'true');
+      link.setAttribute('aria-expanded', 'false');
+    }
 
     if (!isTouchDevice) {
       // Desktop : clic ne bloque pas le menu (on laisse la navigation si href réel)
       link.addEventListener('click', e => {
-        const href = link.getAttribute('href') || '';
+        const href = (link.getAttribute('href') || '').trim();
         if (!href || href === '#' || href.startsWith('javascript:')) {
           e.preventDefault();
         }
       });
-      // Sur desktop, l'ouverture/fermeture se fait via CSS :hover (rien de plus ici)
+      // Sur desktop, l'ouverture/fermeture se fait via CSS :hover
     } else {
       // Mobile/tactile : toggle au clic/tap
       const toggle = e => {
@@ -62,7 +73,7 @@ if (!menuLinks.length) {
           toggle(e);
         }
       });
-      link.addEventListener('pointerdown', e => {
+      link.addEventListener('pointerup', e => {
         if (e.pointerType === 'touch') toggle(e);
       }, { passive: true });
     }
@@ -78,7 +89,7 @@ if (!menuLinks.length) {
     if (e.key === 'Escape') closeAll();
   });
 
-  // Fermer au resize et changement d’orientation
+  // Fermer au resize et changement d’orientation (debounced)
   let resizeCloseTimer = null;
   const onResize = () => {
     clearTimeout(resizeCloseTimer);
