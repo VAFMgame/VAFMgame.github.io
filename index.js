@@ -105,3 +105,93 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fermeture initiale
   closeAll();
 });
+
+// Carousel — défilement via scrollLeft (fix immédiat)
+document.addEventListener('DOMContentLoaded', () => {
+  const wrapper = document.querySelector('.carousel-wrapper');
+  const track = document.querySelector('.carousel-track');
+  let btnLeft = document.querySelector('.carousel-btn.left');
+  let btnRight = document.querySelector('.carousel-btn.right');
+  const items = Array.from(track.querySelectorAll('.vignette-illustration'));
+  if (!wrapper || !track || !btnLeft || !btnRight || items.length === 0) return;
+
+  // Remplacer les boutons pour éliminer d’anciens écouteurs
+  const replaceBtn = (sel) => {
+    const old = document.querySelector(sel);
+    if (!old) return null;
+    const clone = old.cloneNode(true);
+    old.parentNode.replaceChild(clone, old);
+    return clone;
+  };
+  btnLeft = replaceBtn('.carousel-btn.left');
+  btnRight = replaceBtn('.carousel-btn.right');
+
+  let index = 0;
+  let visible = 1;
+
+  const gap = () => parseFloat(getComputedStyle(track).gap) || 0;
+  const itemW = () => items[0]?.getBoundingClientRect().width || items[0]?.offsetWidth || 0;
+
+  const computeVisible = () => {
+    const w = itemW();
+    if (!w) return visible;
+    visible = Math.max(1, Math.floor((wrapper.getBoundingClientRect().width + gap()) / (w + gap())));
+    return visible;
+  };
+  const maxIndex = () => Math.max(0, items.length - visible);
+
+  const updateButtons = () => {
+    btnLeft.disabled = index === 0;
+    btnRight.disabled = index >= maxIndex();
+    const hide = items.length <= visible;
+    btnLeft.style.visibility = hide ? 'hidden' : 'visible';
+    btnRight.style.visibility = hide ? 'hidden' : 'visible';
+  };
+
+  const scrollToIndex = (i, smooth = true) => {
+    const step = Math.round(itemW() + gap());
+    const target = i * step;
+    if (smooth && 'scrollTo' in wrapper) {
+      wrapper.scrollTo({ left: target, behavior: 'smooth' });
+    } else {
+      wrapper.scrollLeft = target;
+    }
+    updateButtons();
+  };
+
+  btnLeft.addEventListener('click', () => {
+    if (index > 0) index--;
+    scrollToIndex(index);
+  });
+  btnRight.addEventListener('click', () => {
+    if (index < maxIndex()) index++;
+    scrollToIndex(index);
+  });
+
+  const onResize = () => {
+    computeVisible();
+    if (index > maxIndex()) index = maxIndex();
+    scrollToIndex(index, false);
+  };
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(onResize);
+    ro.observe(wrapper);
+    items.forEach(i => ro.observe(i));
+  } else {
+    window.addEventListener('resize', () => setTimeout(onResize, 120));
+  }
+
+  const waitImages = () => {
+    const imgs = Array.from(track.querySelectorAll('img'));
+    return Promise.all(imgs.map(img => new Promise(res => {
+      if (img.complete && img.naturalWidth > 0) return res();
+      img.addEventListener('load', res, { once: true });
+      img.addEventListener('error', res, { once: true });
+    })));
+  };
+
+  waitImages().then(() => {
+    computeVisible();
+    scrollToIndex(index, false);
+  }).catch(() => scrollToIndex(index, false));
+});
