@@ -1,4 +1,4 @@
-// MENU DÉROULANT — version finale corrigée
+// MENU DÉROULANT — version stable et universelle
 document.addEventListener('DOMContentLoaded', () => {
   const isTouchDevice = (() => {
     try {
@@ -12,13 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  // limiter la délégation au menu central si possible
   const menuRoot = document.querySelector('.menu-central') || document.body;
   if (!menuRoot) return;
 
-  // s'assurer que chaque .menu-item peut positionner son sous-menu
-  document.querySelectorAll('.menu-item').forEach(mi => {
-    if (getComputedStyle(mi).position === 'static') mi.style.position = 'relative';
+  // Assure que chaque .menu-item peut positionner son sous-menu
+  document.querySelectorAll('.menu-item').forEach(item => {
+    if (getComputedStyle(item).position === 'static') item.style.position = 'relative';
   });
 
   const closeAll = (except = null) => {
@@ -26,72 +25,64 @@ document.addEventListener('DOMContentLoaded', () => {
       if (sub !== except) {
         sub.classList.remove('open');
         const trigger = sub.previousElementSibling;
-        if (trigger && trigger.setAttribute) trigger.setAttribute('aria-expanded', 'false');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
       }
     });
   };
 
-  // initialisation ARIA
+  // Initialisation ARIA
   document.querySelectorAll('.menu-item > a').forEach(link => {
-    const next = link.nextElementSibling;
-    const hasSub = next && next.classList && next.classList.contains('submenu');
+    const submenu = link.nextElementSibling;
+    const hasSub = submenu && submenu.classList.contains('submenu');
     link.setAttribute('aria-haspopup', hasSub ? 'true' : 'false');
     link.setAttribute('aria-expanded', 'false');
   });
 
-  // click delegation : desktop placeholders / tactile toggle
-  menuRoot.addEventListener('click', (e) => {
+  // Gestion du clic (desktop et tactile)
+  menuRoot.addEventListener('click', e => {
     const link = e.target.closest('.menu-item > a');
     if (!link) {
-      // clic hors menu-item : fermer
       if (!e.target.closest('.menu-item')) closeAll();
       return;
     }
 
-    const submenu = link.nextElementSibling && link.nextElementSibling.classList.contains('submenu')
-      ? link.nextElementSibling
-      : null;
+    const submenu = link.nextElementSibling;
+    const hasSub = submenu && submenu.classList.contains('submenu');
 
-    // Desktop : laisser la navigation si href réel, empêcher seulement les placeholders
     if (!isTouchDevice) {
       const href = (link.getAttribute('href') || '').trim();
       if (!href || href === '#' || href.startsWith('javascript:')) e.preventDefault();
       return;
     }
 
-    // Touch device : toggle du sous-menu
-    if (e instanceof MouseEvent && (e.ctrlKey || e.metaKey || e.button === 1)) return;
+    if (!hasSub) return;
     e.preventDefault();
-    if (!submenu) return;
     closeAll(submenu);
     const opened = submenu.classList.toggle('open');
     link.setAttribute('aria-expanded', opened ? 'true' : 'false');
-  }, { passive: false });
+  });
 
-  // clavier : Enter/Space toggle, Escape ferme tout
-  document.addEventListener('keydown', (e) => {
+  // Gestion clavier : Enter / Space / Escape
+  document.addEventListener('keydown', e => {
     const active = document.activeElement;
     if (e.key === 'Escape') {
       closeAll();
       return;
     }
-    if ((e.key === 'Enter' || e.key === ' ') && active && active.matches && active.matches('.menu-item > a')) {
-      const link = active;
-      const submenu = link.nextElementSibling && link.nextElementSibling.classList.contains('submenu')
-        ? link.nextElementSibling
-        : null;
-      if (!submenu) return;
+    if ((e.key === 'Enter' || e.key === ' ') && active && active.matches('.menu-item > a')) {
+      const submenu = active.nextElementSibling;
+      if (!submenu || !submenu.classList.contains('submenu')) return;
       e.preventDefault();
       const opened = submenu.classList.toggle('open');
-      link.setAttribute('aria-expanded', opened ? 'true' : 'false');
-      if (!opened) link.focus();
+      active.setAttribute('aria-expanded', opened ? 'true' : 'false');
+      if (!opened) active.focus();
     }
   });
 
-  // focusout : fermer proprement quand le focus sort du menu-item
+  // Fermeture au focusout
   document.querySelectorAll('.menu-item').forEach(item => {
-    item.addEventListener('focusout', (ev) => {
-      if (!item.contains(ev.relatedTarget)) {
+    item.addEventListener('focusout', e => {
+      if (!item.contains(e.relatedTarget)) {
         const submenu = item.querySelector('.submenu');
         const trigger = item.querySelector('a');
         if (submenu && submenu.classList.contains('open')) {
@@ -102,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // fermer au resize / orientation (debounced)
+  // Fermeture au resize / orientation
   let resizeTimer = null;
   const onResize = () => {
     clearTimeout(resizeTimer);
@@ -111,6 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', onResize);
   window.addEventListener('orientationchange', onResize);
 
-  // état initial
+  // Fermeture initiale
   closeAll();
 });
