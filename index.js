@@ -106,18 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
   closeAll();
 });
 
-// Carousel — défilement via scrollLeft (fix immédiat)
+// Carousel — version stable avec transform forcé (important)
 document.addEventListener('DOMContentLoaded', () => {
   const wrapper = document.querySelector('.carousel-wrapper');
   const track = document.querySelector('.carousel-track');
   let btnLeft = document.querySelector('.carousel-btn.left');
   let btnRight = document.querySelector('.carousel-btn.right');
-  const items = Array.from(track.querySelectorAll('.vignette-illustration'));
+  const items = Array.from(document.querySelectorAll('.carousel-track .vignette-illustration'));
   if (!wrapper || !track || !btnLeft || !btnRight || items.length === 0) return;
 
-  // Remplacer les boutons pour éliminer d’anciens écouteurs
-  const replaceBtn = (sel) => {
-    const old = document.querySelector(sel);
+  // Sécuriser: remplacer les boutons pour supprimer d’anciens handlers éventuels
+  const replaceBtn = (selector) => {
+    const old = document.querySelector(selector);
     if (!old) return null;
     const clone = old.cloneNode(true);
     old.parentNode.replaceChild(clone, old);
@@ -125,6 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   btnLeft = replaceBtn('.carousel-btn.left');
   btnRight = replaceBtn('.carousel-btn.right');
+
+  // Préparation performance/compatibilité
+  track.style.willChange = 'transform';
+  // s'assurer d'une transition si absente
+  const hasTransition = getComputedStyle(track).transition.includes('transform');
+  if (!hasTransition) track.style.transition = 'transform 0.5s ease';
 
   let index = 0;
   let visible = 1;
@@ -140,38 +146,34 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const maxIndex = () => Math.max(0, items.length - visible);
 
-  const updateButtons = () => {
-    btnLeft.disabled = index === 0;
-    btnRight.disabled = index >= maxIndex();
+  const applyTransform = (i) => {
+    const step = Math.round(itemW() + gap());
+    const x = i * step;
+    // Forcer la transform pour éviter qu’elle soit écrasée
+    track.style.setProperty('transform', `translate3d(-${x}px,0,0)`, 'important');
+    // Boutons
+    btnLeft.disabled = i === 0;
+    btnRight.disabled = i >= maxIndex();
     const hide = items.length <= visible;
     btnLeft.style.visibility = hide ? 'hidden' : 'visible';
     btnRight.style.visibility = hide ? 'hidden' : 'visible';
   };
 
-  const scrollToIndex = (i, smooth = true) => {
-    const step = Math.round(itemW() + gap());
-    const target = i * step;
-    if (smooth && 'scrollTo' in wrapper) {
-      wrapper.scrollTo({ left: target, behavior: 'smooth' });
-    } else {
-      wrapper.scrollLeft = target;
-    }
-    updateButtons();
-  };
-
   btnLeft.addEventListener('click', () => {
     if (index > 0) index--;
-    scrollToIndex(index);
-  });
-  btnRight.addEventListener('click', () => {
-    if (index < maxIndex()) index++;
-    scrollToIndex(index);
+    applyTransform(index);
   });
 
+  btnRight.addEventListener('click', () => {
+    if (index < maxIndex()) index++;
+    applyTransform(index);
+  });
+
+  // Recalcule responsive
   const onResize = () => {
     computeVisible();
     if (index > maxIndex()) index = maxIndex();
-    scrollToIndex(index, false);
+    applyTransform(index);
   };
   if (window.ResizeObserver) {
     const ro = new ResizeObserver(onResize);
@@ -181,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => setTimeout(onResize, 120));
   }
 
+  // Attendre les images pour des mesures fiables
   const waitImages = () => {
     const imgs = Array.from(track.querySelectorAll('img'));
     return Promise.all(imgs.map(img => new Promise(res => {
@@ -192,6 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   waitImages().then(() => {
     computeVisible();
-    scrollToIndex(index, false);
-  }).catch(() => scrollToIndex(index, false));
+    applyTransform(index);
+  }).catch(() => applyTransform(index));
 });
