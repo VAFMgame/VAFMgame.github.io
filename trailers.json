@@ -1,1 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Battlefield 6",
+    "src": "videos/battlefield6.mp4",
+    "tags": ["FPS", "EA", "Trailer"],
+    "popularity": 90
+  },
+  {
+    "id": 2,
+    "title": "Fortnite Chapitre 7",
+    "src": "videos/fortnite.mp4",
+    "tags": ["Gameplay", "BattleRoyale"],
+    "popularity": 75
+  }
+]
 
