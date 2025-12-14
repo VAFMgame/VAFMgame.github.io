@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Feed TikTok Gaming</title>
-  <link rel="stylesheet" href="trailers.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="tiktok-feed">
-    <!-- Première vidéo MP4 -->
-    <section class="video-slide">
-      <video src="videos/test.mp4" controls muted playsinline></video>
-    </section>
+  <div class="feed-container">
+    <div class="video-card">
+      <video src="videos/test.mp4" autoplay muted loop playsinline></video>
+      <div class="video-info">
+        <h2>Battlefield 6</h2>
+        <p>#FPS #EA #Trailer</p>
+      </div>
+    </div>
 
-    <!-- Exemple d'une deuxième vidéo -->
-    <section class="video-slide">
-      <video src="videos/fortnite.mp4" controls muted playsinline></video>
-    </section>
-
-    <!-- Exemple d'une vidéo YouTube intégrée -->
-    <section class="video-slide">
-      <iframe src="https://www.youtube.com/embed/XXXXX"
-              frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </section>
+    <div class="video-card">
+      <video src="videos/fortnite.mp4" autoplay muted loop playsinline></video>
+      <div class="video-info">
+        <h2>Fortnite Chapitre 7</h2>
+        <p>#Gameplay #BattleRoyale</p>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
