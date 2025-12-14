@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Feed TikTok Gaming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <script type="module" src="trailers.js" defer></script>
 </head>
 <body>
   <div class="feed-container">
+    <!-- Carte vidéo 1 -->
     <div class="video-card">
       <video src="videos/test.mp4" autoplay muted loop playsinline></video>
       <div class="video-info">
@@ -16,6 +17,7 @@
       </div>
     </div>
 
+    <!-- Carte vidéo 2 -->
     <div class="video-card">
       <video src="videos/fortnite.mp4" autoplay muted loop playsinline></video>
       <div class="video-info">
@@ -25,6 +27,7 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Module JS si tu veux charger dynamiquement depuis trailers.js -->
+  <script type="module" src="trailers.js" defer></script>
 </body>
 </html>
