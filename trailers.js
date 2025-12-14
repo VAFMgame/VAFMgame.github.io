@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const videos = document.querySelectorAll('.video-slide video');
+  const videos = document.querySelectorAll('.video-card video');
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -14,4 +14,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   videos.forEach(v => observer.observe(v));
 });
-
